@@ -1,4 +1,6 @@
-//From KCD's blog <3 https://kentcdodds.com/blog/super-simple-start-to-es-modules-in-the-browser
+### From KCD's blog <3 https://kentcdodds.com/blog/super-simple-start-to-es-modules-in-the-browser
+
+
 First, we need a JavaScript file that we want to load into our site:
 
 ```
@@ -55,6 +57,15 @@ To load that up, we just add another script tag to our HTML:
 And now if we pull that up on our server, we'll also have "Hello from external script" appear on the screen.
 One thing that's important to note here is the inclusion of the .js in our import statement. 
 We may be spoiled by NodeJS and Babel, but in the modules specification we really do have to provide the extension.
+
+### IMPORTANT:
+When you import from another module, you import the binding, not the value, which means an exporting module
+may change the value of the binding at any time, and the modules that import it will see its new value.
+
+When there is a binding named default, it is treated as the module’s main exported value. If you import a module, without braces around the binding name,
+you get its default binding. Such modules can still export other bindings under different names alongside their default export.
+
+Another important feature is that ES module imports happen before a module’s script starts running. That means import declarations may not appear inside functions or blocks(solves problem of nested require in commonJS modules), and the names of dependencies must be quoted strings, not arbitrary expressions.
 
 ### Dynamic Imports
 One last thing I want to show is that dynamic imports work well too. So if we add another file:
