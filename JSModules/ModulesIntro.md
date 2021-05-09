@@ -15,7 +15,7 @@ Now all these slowly become a part of history, but we still can find them in old
 The language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js.
 So we’ll study the modern JavaScript modules from now on.
 
-#### Core Module features
+### Core Module features
 
 What’s different in modules, compared to “regular” scripts?
 
@@ -32,3 +32,19 @@ Modules always use strict, by default. E.g. assigning to an undeclared variable 
  #### Module level scope
  
  Each module has its own top-level scope. In other words, top-level variables and functions from a module are not seen in other scripts.
+ In the example below, two scripts are imported, and hello.js tries to use user variable declared in user.js, and fails:
+ 
+ ``` //users.js
+ let user = "John";
+  /*********************/
+  
+  //hello.js
+  alert(user); // no such variable (each module has independent variables)
+  
+  /******************/
+  //index.html
+  <!doctype html>
+  <script type="module" src="user.js"></script> 
+  <script type="module" src="hello.js"></script>
+  ```
+ 
