@@ -103,3 +103,14 @@ it receives back a text file which it can execute as JavaScript.
 
 The point is, the thing you put in the quotes in your import statements has to point to a JavaScript resource on some server somewhere. 
 This means that if you happen to have a URL that returns a JavaScript file but doesn't end in .js you are fine omitting that.
+
+ ### ECMAScript Harmony (ES6) key points summarised --Credits https://kamleshchandnani.com/articles/learn-the-basics-of-the-javascript-module-system-and-build-your-own-library
+ 
+#### Used for both server/client side
+#### Runtime/static loading of modules supported
+#### When you import, you get back bindings value (actual value)
+#### Import via “import” and export via “export”
+#### Static analyzing — You can determine imports and exports at compile time (statically) — you only have to look at the source code, you don’t have to execute it
+#### Tree shakeable, because of static analyzing supported by ES6
+#### Always get an actual value so live changes in the module itself
+#### Better cyclic dependency management than CommonJS
