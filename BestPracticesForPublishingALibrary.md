@@ -29,3 +29,7 @@ import { shake } from './shakebake.js'
 // both shake and bake are included in the output
 
 ```
+### 1.Publish all module variants
+*  We should publish all the module variants, like UMD and ES, because we never know which browser/webpack versions our consumers might use this library/package in.
+*  Even though all the bundlers like Webpack and Rollup understand ES modules, if our consumer is using Webpack 1.x, then it cannot understand the ES module.
+
