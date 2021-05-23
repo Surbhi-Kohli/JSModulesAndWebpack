@@ -36,3 +36,15 @@ module.exports = { log }
 var logModule = require('./log');
 logModule.log()
 ```
+#### named exports in commonJS
+```
+//common js named exports
+const red="color:red;"
+const blue="color:blue;"
+const makeColorStyle=(color)=>`color:${color}`
+
+exports.red=red;//named exports in common js
+exports.blue=blue;
+exports.makeColorStyle=makeColorStyle
+
+```
