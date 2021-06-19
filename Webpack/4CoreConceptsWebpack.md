@@ -1,0 +1,141 @@
+### Entry:
+Tells webpack what(files) to load for the browser(What u want ur code be bundled in its contents);Compliments the output property.
+Behind the scenes:We just passed that string to webpack's compiler and then it goes resolves it and tries to create a graph.
+
+### Output: 
+Tells webpack WHERE and HOW to distribute bundles(compilations).Works with Entry
+```
+module.exports ={
+  entry: './browser.main.ts',
+  output:{
+   path:'./dist',
+   filename:'./bundle.js' //in webpack 4 ,filename is set to main.js by default
+  }
+} 
+
+```
+### Loaders and Rules:
+Rules:Tell webpack how to modify files before its added to dependency graph.Defines rule on how we want  to treat files that aren't js or
+  how we want to treat files that match against the specific loaders
+Loaders: These are JS modules(functions) that takes the source file and returns it in a [modified state].Loaders tell webpack HOW to interpret and translate files.
+         Transformed on a per-file basis before adding to the dependency graph
+
+```
+module:{
+   rules:[
+      { test: /\.ts$/ ,use:'ts-loader'}, //rule-set---2 min criteria
+      { test: /\.js$/, use:'babel-loader'},
+      { test:/\.css$/ ,use:'css-loader'}
+   ],
+}
+//this is bare minimum use-case in one rule set with just 2 criteria specified.
+```
+We may have multiple criteria specified in one rule-set as follows
+```
+module:{
+  rules:[
+    {
+      test :regex,
+      use: (Array|String|Function), //the loader node module string is what u pass here
+      include:RegExp[],
+      exclude:RegExp[],  //eg ignore any files that are coming  from node modules folder
+      issuer: (RegExp|String)[],
+      enforce:"pre"|"post"
+    }
+  ]
+}
+//this is use-case based
+```
+
+test:A regular expression that instructs the compiler which files to run the loader against.
+use:An array/string/function that returns loader objects.you can add a loader conditionally or apply a chain of loaders
+enforce:Can be "pre" or "post",tells webpack to run this rule before or after all the other rules
+include:An array of regular expression that instructs the compiler which folders/files to include.Will only search paths provided with the include.
+exclude:An array of regular expression that instructs the compiler which folders/files to ignore.
+
+//include exclude example:
+
+```
+module:{
+rules:[
+{
+  test:/\.ts$/,
+  use:[
+    'awesome-typescript-loader',
+    'ng2-asset-loader'
+  ]
+  include:/some_dir_name/,
+  exclude:[/\.(spec|e2e)\.ts$/],//i dont want to transform my spec files in production mode
+}
+]
+
+
+}
+
+```
+#### Chaining Loaders
+
+```
+rules:[
+{ 
+test:/\.less$/,
+use:['style','css','less'] //is equivalent to style(css(less())) ---less is executed first 
+}
+]
+//The anatomy of a loader is just a function that takes a source and it returns a new source .
+//Loaders always execute from right to left.Technically,under the hood they go right left right ,but the first pass from left to right 
+//is just to collect meta-data
+```
+
+### Plugins
+Plugins add additional functionality to Compilations(optimized bundled modules).More powerful with more acces to CompilerAPI.
+Does everything else that you'd ever want to in a webpack.Loaders are applied on per-file basis.But plugins can work on the whole bundle
+
+Anatomy of Plugin:its an instance(js object) with an 'apply' property in the prototype chain OR A plugin is an es5 class which implements an 'apply' function.
+The compiler uses it to emit events.
+
+It allows you to hook into the entire lifecycle of
+events(compilation lifecycle).
+webpack has a variety of built-in plugins.
+
+Basic Plugin example:
+```
+function BellOnBundlerErrorPlugin(){}
+
+BellOnBundlerErrorPlugin.prototype.apply=function(compiler){
+   
+    if(typeof process!=='undefined')
+    {
+       //Compiler events that are emitted and handled
+       compiler.plugin('done'.function(stats){
+         if(stats.hasError()){
+         process.stderr.write('\x07');
+         }
+       });
+       compiler.plugin('failed',function(err){
+          process.stderr.write('\x07');
+       })
+       
+    }
+
+}
+module.exports=BellOnBundleErrorPlugin;
+/*************************************************************************/
+Using the plugin
+
+//require from node modules or webpack or local file
+var BellOnBundleErrorPlugin=require('bell-on-error');
+var webpack=require('webpack');
+
+module.export={
+
+ plugins:[
+    new BellOnBundlerErrorPlugin(),
+    
+    //Just a few of built in  plugin
+ ]
+}
+
+
+```
+
