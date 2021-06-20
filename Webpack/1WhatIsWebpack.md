@@ -23,7 +23,8 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
    But there is a problem with this as well
       
       i Full rebuilds everytime: Every time u change somethng in a file,u have to rebuild the whole project .
-      ii Dead code :Concat doesn't help tie usages across files,ie if u're just concatenating files together,how do u remove code that u're actually not using or
+      ii Dead code :Concat doesn't help tie usages across files,ie if u're just concatenating files together,
+       how do u remove code that u're actually not using or
        how do u even know that there is some unused code.
       iii Lots of IIFES are slow .
       iv No dynamic loaing.
