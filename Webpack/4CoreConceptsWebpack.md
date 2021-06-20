@@ -91,7 +91,8 @@ use:['style','css','less'] //is equivalent to style(css(less())) ---less is exec
 Plugins add additional functionality to Compilations(optimized bundled modules).More powerful with more acces to CompilerAPI.
 Does everything else that you'd ever want to in a webpack.Loaders are applied on per-file basis.But plugins can work on the whole bundle
 
-Anatomy of Plugin:its an instance(js object) with an 'apply' property in the prototype chain OR A plugin is an es5 class which implements an 'apply' function.
+Anatomy of Plugin:its an instance(js object) with an 'apply' property in the prototype chain OR A plugin is an es5 class which implements
+an 'apply' function.
 The compiler uses it to emit events.
 
 It allows you to hook into the entire lifecycle of
@@ -130,12 +131,28 @@ var webpack=require('webpack');
 module.export={
 
  plugins:[
-    new BellOnBundlerErrorPlugin(),
+    new BellOnBundlerErrorPlugin(), //new instance
+   
     
-    //Just a few of built in  plugin
+    //Just a few of the built in  plugin
+    new webpack.optimize.CommonsChunkPlugin('vendors'),
+    new webpack.optimize.UglifyJsPlugin()
  ]
+ //....
 }
 
 
 ```
 
+How to use plugins?
+a.require() plugin from node_modules into config.
+b.Add new instance of plugin to plugins key in config object.
+c.Provide additional info for arguments
+
+Why do we want to make plugins instantiable ?
+
+a.We should be able to apply the same plugin multiple times if u want to or if its valid.
+b.We should be able to pass different types of arguments or options into the plugins
+and hence instantiation required
+
+Tip: When u want to interact more with the compiler runtime,or the event lifecycle or for functionality at the bundle level ,plugins are the way to go.
