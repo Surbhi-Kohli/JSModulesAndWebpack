@@ -5,13 +5,14 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
   ### Why webpack?
   
   #### Going back to history:There are primarily only 2 ways to use JS in browser
-  i Add a script tag with src attribute and a reference to that js file-->this is how we leverage when we use webpack
-  ii Write ur JS in HTML
+     i Add a script tag with src attribute and a reference to that js file-->this is how we leverage when we use webpack
+     ii Write ur JS in HTML
   
   But there are problems:
-  ** Too many scripts:that u try to load from script tags in HTML.And each browser has bottlenecks.There's only a certain amount of concurrent requests that
-  can fetch data in a single time.And so breaking ur app into a 100 JS files and loading them in a browser affects the performance  
-  ** Unmaintainable file, * Scope ,* Size ,* Monolith files
+      
+      i Too many scripts:that u try to load from script tags in HTML.And each browser has bottlenecks.There's only a certain amount of concurrent requests that
+          can fetch data in a single time.And so breaking ur app into a 100 JS files and loading them in a browser affects the performance  
+      ii Unmaintainable file, * Scope ,* Size ,* Monolith files
   
   Solution:IIFE
   Treat each file as an IIFE (Revealing Module).
