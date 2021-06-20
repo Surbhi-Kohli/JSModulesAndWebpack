@@ -8,7 +8,8 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
   There are 3 ways to do so .
   
   * webpack.config.js---its a module itself
-  module.exports={
+ ```
+ module.exports={
    entry:{
      vendor:'./src/vendor.ts'
        main:'./src/main.browser.ts'
@@ -19,12 +20,16 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
   }
   
 }
+
+```
+
  * webpack cli
    webpack <entry.js> <result.js> --colors --progress
    webpack-dev-server --port=9000
    
    * node api
-   var webpack= require("webpack")
+```
+var webpack= require("webpack")
    
    //returns a compiler instance
    webpack({//config object here},
@@ -32,3 +37,4 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
        //compilerCallBack
        console.error(err)
      })
+```
