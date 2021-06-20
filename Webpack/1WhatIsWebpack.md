@@ -15,13 +15,20 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
         and loading them in a browser affects the performance  
       ii Unmaintainable file, * Scope ,* Size ,* Monolith files
   
-  Solution:IIFE
+ ##### Solution:IIFE
   Treat each file as an IIFE (Revealing Module).
   People started to ship their JS but have  individua files wrapped in IIFEs.So now u can CONCATENATE files.
   With the help of IIFE we can "safely" combine files without concern of scope collision*. (*=There are caveats always)
   
    But there is a problem with this as well
-   *Full rrebuilds everytime
+      
+      i Full rebuilds everytime: Every time u change somethng in a file,u have to rebuild the whole project .
+      ii Dead code :Concat doesn't help tie usages across files,ie if u're just concatenating files together,how do u remove code that u're actually not using or
+       how do u even know that there is some unused code.
+      iii Lots of IIFES are slow .
+      iv No dynamic loaing.
+      And so JS modules came into picture
+      
   
   ## How to configure webpack?
   
