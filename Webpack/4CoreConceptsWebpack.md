@@ -79,12 +79,12 @@ rules:[
 rules:[
 { 
 test:/\.less$/,
-use:['style','css','less'] //is equivalent to style(css(less())) ---less is executed first 
+use:['style','css','less'] //is equivalent to style(css(less())) "right to left execution" ---less is executed first 
 }
 ]
 //The anatomy of a loader is just a function that takes a source and it returns a new source .
-//Loaders always execute from right to left.Technically,under the hood they go right left right ,but the first pass from left to right 
-//is just to collect meta-data
+//Loaders always execute from right to left.Technically,under the hood they go right left right ,but the first pass 
+//from left to right is just to collect meta-data
 ```
 
 ### Plugins
@@ -155,4 +155,9 @@ a.We should be able to apply the same plugin multiple times if u want to or if i
 b.We should be able to pass different types of arguments or options into the plugins
 and hence instantiation required
 
+Plugins let u do anything u can't do with loaders as loaders are applied on per file basis but with plugins ,u can access the whole bundle.
+And so wouldn't want to run things like uglify.js in a loader as then u would get less optimized minification bcoz then minifier wont know
+where other things are in the scope and whether its being used(It only knows about that file) and thats whywe have uglifyJS plugin or compression plugin,etc
 Tip: When u want to interact more with the compiler runtime,or the event lifecycle or for functionality at the bundle level ,plugins are the way to go.
+
+DID YOU KNOW: 80% of webpack is made up of its own plugin system.Webpack is completely event driven architecture and so all of the webpack source code is all of these plugins.
