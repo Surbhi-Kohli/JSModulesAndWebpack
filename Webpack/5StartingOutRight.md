@@ -36,6 +36,7 @@ the configuration and that is super valuable.
 //package.json---modified to let u pass variables from cli to webpack config file
 
 ```
+```
 "scripts":{
          "webpack":"webpack",
          "prod":"npm run webpack -- --env.mode production",
