@@ -35,8 +35,6 @@ the configuration and that is super valuable.
 
 //package.json---modified to let u pass variables from cli to webpack config file
 
-```
-```
 "scripts":{
          "webpack":"webpack",
          "prod":"npm run webpack -- --env.mode production",
@@ -96,7 +94,18 @@ variables.Like if u are using it from another build process like gradle or make,
 ```
 
 ### Adding Webpack Plugins
+You may want to have separate config files and save them all in build-utils folder
+
 First install html-webpack plugin
 ```
 npm install html-webpack-plugin --save-dev 
+```
+```
+//webpack.config.js
+const HtmlWebpackPlugin=require("html-webpack-plugin");
+
+module.exports=({mode})=>{
+
+}
+
 ```
