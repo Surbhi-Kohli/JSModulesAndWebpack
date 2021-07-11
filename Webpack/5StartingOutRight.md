@@ -102,10 +102,19 @@ npm install html-webpack-plugin --save-dev
 ```
 ```
 //webpack.config.js
+const webpack=require("webpack")//gives more interactive terminal progress
 const HtmlWebpackPlugin=require("html-webpack-plugin");
 
-module.exports=({mode})=>{
 
+module.exports=({mode})=>{
+    return {
+      mode,
+      output:{
+        filename:"bundle.js"
+      },
+      plugin:[new HtmlWebpackPlugin(),
+     new webpack.progressPlugin]//any plugin that is on webpack namespace,u can access with dot syntax
+    }
 }
 
 ```
