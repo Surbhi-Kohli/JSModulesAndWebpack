@@ -1,3 +1,11 @@
+### Mode:
+By setting the mode parameter to either development, production or none, you can enable webpack's 
+built-in optimizations that correspond to each environment. The default value is production.
+
+module.exports = {
+  mode: 'production',
+};
+
 ### Entry:
 Tells webpack what(files) to load for the browser(What u want ur code be bundled in its contents);Compliments the output property.
 Behind the scenes:We just passed that string to webpack's compiler and then it goes resolves it and tries to create a graph.
@@ -88,6 +96,11 @@ use:['style','css','less'] //is equivalent to style(css(less())) "right to left 
 ```
 
 ### Plugins
+
+While loaders are used to transform certain types of modules, plugins can be leveraged to perform a wider range of tasks 
+like bundle optimization, asset management and injection of environment variables.
+
+
 Plugins add additional functionality to Compilations(optimized bundled modules).More powerful with more acces to CompilerAPI.
 Does everything else that you'd ever want to in a webpack.Loaders are applied on per-file basis.But plugins can work on the whole bundle
 
