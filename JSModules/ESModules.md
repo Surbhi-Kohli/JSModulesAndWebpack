@@ -28,11 +28,16 @@ Notice the type="module" attribute there. That's all we need to do to inform the
 There are several differences in how the runtime environment handles the JavaScript file based on whether 
 it's a script or a module, but suffice-it to say that one of those differences is when it's a "module" you're allowed to use modules!
 
+CAN'T LOAD HTML WITH MODULE SCRIPT IN FILE SYSTEM
+
+🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
 In our inline script above, we're importing the appendDiv function from the append-div.js file. Unfortunately, to load the module,
 we can't just open the HTML file in our browser. We have to be using a local server and open the file from that.
-If you have node.js installed, then you can open your terminal to the directory where you have these files and run this to get a server going:``` npx serve ```
+If you have node.js installed, then you can open your terminal to the directory where you have these files and run this to get
+a server going:``` npx serve ```
 
 Tada! We've loaded a real EcmaScript Module! Hooray 🎉
+🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
 
 Normally we don't write our JavaScript in an inline script in our HTML file, so let's load a module from a file:
 ### External script:
