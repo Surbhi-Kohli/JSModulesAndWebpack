@@ -4,8 +4,10 @@ As our application grows bigger, we want to split it into multiple files, so cal
 For a long time, JavaScript existed without a language-level module syntax. That wasn’t a problem, because initially scripts were small and simple, so there was no need.
 
 But eventually scripts became more and more complex, so the community invented a variety of ways to organize code into modules, special libraries to load modules on demand.
-
-To name some (for historical reasons):
+🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
+A module allows only specific variables and functions to be accessed outside it. These variables and functions have the export statement prefixed to them.
+🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
+To name some modules(for historical reasons):
 
 ### AMD – one of the most ancient module systems, initially implemented by the library require.js.
 ### CommonJS – the module system created for Node.js server.
