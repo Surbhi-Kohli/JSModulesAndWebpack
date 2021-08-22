@@ -92,7 +92,7 @@ That’s because modules are deferred, so we wait for the document to be process
 
 When using modules, we should be aware that the HTML page shows up as it loads, and JavaScript modules run after that, so the user may see the page before the JavaScript application is ready. Some functionality may not work yet. We should put “loading indicators”, or otherwise ensure that the visitor won’t be confused by that.
  
- #### Module level scope
+ ### Module level scope
  
  Each module has its own top-level scope. In other words, top-level variables and functions from a module are not seen in other scripts.
  In the example below, two scripts are imported, and hello.js tries to use user variable declared in user.js, and fails:
@@ -166,8 +166,28 @@ That’s good for functionality that doesn’t depend on anything, like counters
 </script>
 
 ```
- 
-#### A module code is evaluated only the first time when imported
+### External Scripts
+External scripts that have type="module" are different in two aspects:
+
+1.External scripts with the same src run only once:
+
+ ```
+<!-- the script my.js is fetched and executed only once -->
+<script type="module" src="my.js"></script>
+<script type="module" src="my.js"></script>
+ ```   
+    
+External scripts that are fetched from another origin (e.g. another site) require CORS headers, as described in the chapter Fetch: Cross-Origin Requests. 
+In other words, if a module script is fetched from another origin, the remote server must supply a header Access-Control-Allow-Origin allowing the fetch.
+    
+``` 
+<!-- another-site.com must supply Access-Control-Allow-Origin -->
+<!-- otherwise, the script won't execute -->
+<script type="module" src="http://another-site.com/their.js"></script>
+    ```
+    
+That ensures better security by default.
+### A module code is evaluated only the first time when imported
 
 If the same module is imported into multiple other places, its code is executed only the first time, then exports are given to all importers.
 
@@ -193,10 +213,11 @@ import `./alert.js`; // (shows nothing)
 In practice, top-level module code is mostly used for initialization, creation of internal data structures, and if we want something to be reusable – export it.
 Now, a more advanced example.
 
- 
+ ###IMPORTANT###
 An ES module’s interface is not a single value but a set of named bindings.When you import from another module, you import the binding, not the value, 
 which means an exporting module may change the value of the binding at any time, and the modules that import it will see its new value.
 This is different from CommonJS where module get imported as value and dont get updated if a file makes updation in imported module.
+    
 Let’s say, a module exports an object:
 
 ```
@@ -281,4 +302,23 @@ In a module, top-level this is undefined.
 
 ```
 
-Compare it to non-module scripts, where this is a global object:
+Compare it to non-module scripts, where this is a global object
+   ### No “bare” modules allowed
+In the browser, import must get either a relative or absolute URL. Modules without any path are called “bare” modules. Such modules are not allowed in import.
+
+For instance, this import is invalid:
+
+import {sayHi} from 'sayHi'; // Error, "bare" module
+the module must have a path, e.g. './sayHi.js' or wherever the module is Certain environments, like Node.js or bundle tools allow bare modules, without any path, as they have their own ways for finding modules and hooks to fine-tune them. But browsers do not support bare modules yet.
+
+ ### Compatibility, “nomodule”
+Old browsers do not understand type="module". Scripts of an unknown type are just ignored. For them, it’s possible to provide a fallback using the nomodule attribute:
+
+<script type="module">
+  alert("Runs in modern browsers");
+</script>
+
+<script nomodule>
+  alert("Modern browsers know both type=module and nomodule, so skip this")
+  alert("Old browsers ignore script with unknown type=module, but execute this.");
+</script>
