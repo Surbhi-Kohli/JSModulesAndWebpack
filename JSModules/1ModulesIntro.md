@@ -4,9 +4,7 @@ As our application grows bigger, we want to split it into multiple files, so cal
 For a long time, JavaScript existed without a language-level module syntax. That wasn’t a problem, because initially scripts were small and simple, so there was no need.
 
 But eventually scripts became more and more complex, so the community invented a variety of ways to organize code into modules, special libraries to load modules on demand.
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
-A module allows only specific variables and functions to be accessed outside it. These variables and functions have the export statement prefixed to them.
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑
+
 To name some modules(for historical reasons):
 
 ### AMD – one of the most ancient module systems, initially implemented by the library require.js.
@@ -16,6 +14,37 @@ Now all these slowly become a part of history, but we still can find them in old
 
 The language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js.
 So we’ll study the modern JavaScript modules from now on.
+
+
+### Creating a Module 🛑🛑
+A module allows only specific variables and functions to be accessed outside it. These variables and functions have the export statement prefixed to them.
+
+// file "module.js"
+export var someVar = "Some data";
+
+export function someFunc() {
+    return " for output";
+}
+
+// this has no "export" prefixed hence cannot be used outside this module 
+function someOtherFunction() {
+    return 1;
+}
+
+
+### Using a Javascript Module inside a Module Script Tag
+The import statement is used to import variables and functions exported by an module into the script that plans on using it.
+
+Any <script> tag in HTML wanting to import a module needs have the attribute type="module".
+
+In the below example the module that is created in the above snippet is imported using the import statement.
+
+<script type="module">
+    import {someVar, someFunc} from './module.js';
+
+    // "Some data for output"
+    console.log(someVar + someFunc());
+</script>
 
 ## Core Module features
 
@@ -30,6 +59,38 @@ Modules always use strict, by default. E.g. assigning to an undeclared variable 
   a = 5; // error
 </script>
  ```
+ #### Module Scripts are Deferred By the Browser
+ A script tag of type="module", whether inline or external is always deferred by the browser (regardless of the fact whether defer attribute is used or not).
+
+Module scripts are always deferred, same effect as defer attributefor both external and inline scripts.
+
+It is loaded in parallel by the browser, not impacting the webpage load time. 
+Once loaded, it waits for the DOM to get ready, and then the script is executed.
+The page suffers no performance penalty as such. In other words:
+
+downloading external module scripts <script type="module" src="..."> doesn’t block HTML processing, they load in parallel with other resources. module scripts wait until the HTML document is fully ready (even if they are tiny and load faster than HTML), and then run. relative order of scripts is maintained: scripts that go first in the document, execute first.
+#### As a side-effect, module scripts always “see” the fully loaded HTML-page, including HTML elements below them.
+For instance:
+```
+<script type="module">
+alert(typeof button); // object: the script can 'see' the button below
+// as modules are deferred, the script runs after the whole page is loaded
+</script>
+
+//Compare to regular script below:
+
+<script>
+alert(typeof button); // button is undefined, the script can't see elements below
+// regular scripts run immediately, before the rest of the page is processed
+</script>
+
+<button id="button">Button</button>
+ ```
+ Please note: the second script actually runs before the first! So we’ll see undefined first, and then object.
+
+That’s because modules are deferred, so we wait for the document to be processed. The regular script runs immediately, so we see its output first.
+
+When using modules, we should be aware that the HTML page shows up as it loads, and JavaScript modules run after that, so the user may see the page before the JavaScript application is ready. Some functionality may not work yet. We should put “loading indicators”, or otherwise ensure that the visitor won’t be confused by that.
  
  #### Module level scope
  
@@ -86,7 +147,26 @@ In the browser, independent top-level scope also exists for each <script type="m
 ```
 If we really need to make a window-level global variable, we can explicitly assign it to window and access as
 window.user. But that’s an exception requiring a good reason.
+ 
+### Async works on inline scripts
+For non-module scripts, the async attribute only works on external scripts. Async scripts run immediately when ready, independently of other scripts or the HTML document.
 
+For module scripts, it works on inline scripts as well. For example, the inline script below has async, so it doesn’t wait for anything.
+
+It performs the import (fetches ./analytics.js) and runs when ready, even if the HTML document is not finished yet, or if other scripts are still pending.
+
+That’s good for functionality that doesn’t depend on anything, like counters, ads, document-level event listeners.
+```
+<!-- all dependencies are fetched (analytics.js), and the script runs -->
+<!-- doesn't wait for the document or other <script> tags -->
+<script async type="module">
+  import {counter} from './analytics.js';
+
+  counter.count();
+</script>
+
+```
+ 
 #### A module code is evaluated only the first time when imported
 
 If the same module is imported into multiple other places, its code is executed only the first time, then exports are given to all importers.
