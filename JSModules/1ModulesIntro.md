@@ -19,6 +19,7 @@ So we’ll study the modern JavaScript modules from now on.
 ### Creating a Module 🛑🛑
 A module allows only specific variables and functions to be accessed outside it. These variables and functions have the export statement prefixed to them.
 
+```
 // file "module.js"
 export var someVar = "Some data";
 
@@ -30,7 +31,7 @@ export function someFunc() {
 function someOtherFunction() {
     return 1;
 }
-
+```
 
 ### Using a Javascript Module inside a Module Script Tag
 The import statement is used to import variables and functions exported by an module into the script that plans on using it.
@@ -38,14 +39,15 @@ The import statement is used to import variables and functions exported by an mo
 Any <script> tag in HTML wanting to import a module needs have the attribute type="module".
 
 In the below example the module that is created in the above snippet is imported using the import statement.
-
+```
 <script type="module">
     import {someVar, someFunc} from './module.js';
 
     // "Some data for output"
     console.log(someVar + someFunc());
 </script>
-
+```
+    
 ## Core Module features
 
 What’s different in modules, compared to “regular” scripts?
@@ -78,7 +80,6 @@ alert(typeof button); // object: the script can 'see' the button below
 </script>
 
 //Compare to regular script below:
-
 <script>
 alert(typeof button); // button is undefined, the script can't see elements below
 // regular scripts run immediately, before the rest of the page is processed
@@ -86,6 +87,7 @@ alert(typeof button); // button is undefined, the script can't see elements belo
 
 <button id="button">Button</button>
  ```
+    
  Please note: the second script actually runs before the first! So we’ll see undefined first, and then object.
 
 That’s because modules are deferred, so we wait for the document to be processed. The regular script runs immediately, so we see its output first.
