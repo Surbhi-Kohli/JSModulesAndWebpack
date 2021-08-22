@@ -318,6 +318,7 @@ the module must have a path, e.g. './sayHi.js' or wherever the module is Certain
  ### Compatibility, “nomodule”
 Old browsers do not understand type="module". Scripts of an unknown type are just ignored. For them, it’s possible to provide a fallback using the nomodule attribute:
 
+    ```
 <script type="module">
   alert("Runs in modern browsers");
 </script>
@@ -326,3 +327,26 @@ Old browsers do not understand type="module". Scripts of an unknown type are jus
   alert("Modern browsers know both type=module and nomodule, so skip this")
   alert("Old browsers ignore script with unknown type=module, but execute this.");
 </script>
+
+   ```
+   ### Build tools
+    
+In real-life, browser modules are rarely used in their “raw” form. Usually, we bundle them together with a special tool such as Webpack and deploy to the production server.
+
+One of the benefits of using bundlers – they give more control over how modules are resolved, allowing bare modules and much more, like CSS/HTML modules.
+
+Build tools do the following:
+
+1.Take a “main” module, the one intended to be put in <script type="module"> in HTML.
+2.Analyze its dependencies: imports and then imports of imports etc.
+3.Build a single file with all modules (or multiple files, that’s tunable), replacing native import calls with bundler functions, so that it works. “Special”       module types like HTML/CSS modules are also supported.
+4.In the process, other transformations and optimizations may be applied:
+   * Unreachable code removed.
+   * Unused exports removed (“tree-shaking”).
+   * Development-specific statements like console and debugger removed.
+   * Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using Babel.
+   * The resulting file is minified (spaces removed, variables replaced with shorter names, etc).
+If we use bundle tools, then as scripts are bundled together into a single file (or few files), import/export statements inside those scripts are replaced by special bundler functions. So the resulting “bundled” script does not contain any import/export, it doesn’t require type="module", and we can put it into a regular script:
+
+<!-- Assuming we got bundle.js from a tool like Webpack -->
+<script src="bundle.js"></script>
