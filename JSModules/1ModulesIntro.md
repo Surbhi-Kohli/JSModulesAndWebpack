@@ -71,6 +71,7 @@ Once loaded, it waits for the DOM to get ready, and then the script is executed.
 The page suffers no performance penalty as such. In other words:
 
 downloading external module scripts <script type="module" src="..."> doesn’t block HTML processing, they load in parallel with other resources. module scripts wait until the HTML document is fully ready (even if they are tiny and load faster than HTML), and then run. relative order of scripts is maintained: scripts that go first in the document, execute first.
+    
 #### As a side-effect, module scripts always “see” the fully loaded HTML-page, including HTML elements below them.
 For instance:
 ```
@@ -182,11 +183,11 @@ External scripts that have type="module" are different in two aspects:
 External scripts that are fetched from another origin (e.g. another site) require CORS headers, as described in the chapter Fetch: Cross-Origin Requests. 
 In other words, if a module script is fetched from another origin, the remote server must supply a header Access-Control-Allow-Origin allowing the fetch.
     
-``` 
+
 <!-- another-site.com must supply Access-Control-Allow-Origin -->
 <!-- otherwise, the script won't execute -->
 <script type="module" src="http://another-site.com/their.js"></script>
-    ```
+
     
 That ensures better security by default.
 ### A module code is evaluated only the first time when imported
@@ -212,6 +213,7 @@ import `./alert.js`; // Module is evaluated!
 import `./alert.js`; // (shows nothing)
 
 ```
+    
 In practice, top-level module code is mostly used for initialization, creation of internal data structures, and if we want something to be reusable – export it.
 Now, a more advanced example.
 
