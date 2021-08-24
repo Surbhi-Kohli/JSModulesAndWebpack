@@ -10,15 +10,46 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
   
   But there are problems:
       
-      i Too many scripts:that u try to load from script tags in HTML.And each browser has bottlenecks.There's only a
+      i Doesn't scale:Too many scripts that u try to load from script tags in HTML.And each browser has bottlenecks.There's only a
         certain amount of concurrent requests that can fetch data in a single time.And so breaking ur app into a 100 JS files 
         and loading them in a browser affects the performance  
       ii Unmaintainable file, * Scope ,* Size ,* Monolith files
   
  ##### Solution:IIFE
-  Treat each file as an IIFE (Revealing Module).
-  People started to ship their JS but have  individua files wrapped in IIFEs.So now u can CONCATENATE files.
+  Treat each file as an IIFE (Revealing Module).-->Provide data from an outside scope and return scoped information
+  ```
+  /**Immediately Invoked Function Expression **/
+  const whatever=(function(dataNowUsedInside){
+     return {
+       someAttribute:"youWant"
+     }
+  })(1)
+  /*
+  * whatever.someAttribute
+  * > "youWant"
+  */
+  
+  
+  
+  //IIFEs prevent scope leak
+  var outerScope=1
+  //IIFE
+  
+  const whatever=(function(dataNowUsedInside){
+     var outerScope=4;
+     return{
+       someAttribute:"youWant"
+     }
+  
+  })(1);
+  console.log(outerScope);//1 -->No inner scope leak!!!
+  ```
+  
+  
+  
+  People started to ship their JS but have  individual files wrapped in IIFEs.So now u can CONCATENATE files.
   With the help of IIFE we can "safely" combine files without concern of scope collision*. (*=There are caveats always)
+   Tools like Make,Gulp,Grunt helped to solve problem using this approach
   
    But there is a problem with this as well
       
@@ -26,9 +57,9 @@ Webpack is a module bundler.It lets you write any module format(even mixed),comp
       ii Dead code :Concat doesn't help tie usages across files,ie if u're just concatenating files together,
        how do u remove code that u're actually not using or
        how do u even know that there is some unused code.
-      iii Lots of IIFES are slow .
+      iii Lots of IIFES are slow .-->Forces JS engine to eager parse the code,leads to slower running apps
       iv No dynamic loaing.
-      And so JS modules came into picture
+      And so JS modules came into picture to solve these issues.
       
   
   ## How to configure webpack?
