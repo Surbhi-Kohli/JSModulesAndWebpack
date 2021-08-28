@@ -30,9 +30,9 @@ module.exports=(first,second)=>first/second
   Gives scope for static analysis
   
   Problems with commonJs:
-No Browser Support
-No live bindings(Problems with cirscular references)
-  Sync module resolution,Loader(Slow)Resolution algo is slow,Its build into node but its really slow coz its synchronous
+ *No Browser Support
+ *No live bindings(Problems with cirscular references)
+ * Sync module resolution,Loader(Slow)Resolution algo is slow,Its build into node but its really slow coz its synchronous
   Solution:Bundlers/Linkers:Browerify(static),RequireJS(Loader),SystemJs(Loader) or js that runs in browser that is responsible for fetching modules in the
   run time
   
