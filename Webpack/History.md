@@ -31,17 +31,19 @@ module.exports=(first,second)=>first/second
   
   Problems with commonJs:
  *No Browser Support
- *No live bindings(Problems with cirscular references)
+ *No live bindings(Problems with circular references)-->ppl changing imported value in one file,doesnt show in other module
+ 
  * Sync module resolution,Loader(Slow)Resolution algo is slow,Its build into node but its really slow coz its synchronous
+ * 
   Solution:Bundlers/Linkers:Browerify(static),RequireJS(Loader),SystemJs(Loader) or js that runs in browser that is responsible for fetching modules in the
   run time
   
   Problems:
 require() is a function u can pass anywhere,so people were abusing its usage
-_-No static analysis that way
--No async/lazy loading(all bundles up front)
+_-No static analysis that way,because without evaluating the whole function,u won't know if theres a require somewhere within
+-No async/lazy loading(all bundles up front) although require is dynamic module
   require is dynamic,but theres no way to async load something
-  Too dynamic
+  commonjs is Too dynamic module format to be able to write optimized code
   
   ESM:Static,Reusable,encapsulated,organized,convenient
   Problem:ESM for node???
