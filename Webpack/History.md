@@ -35,7 +35,7 @@ module.exports=(first,second)=>first/second
  * No live bindings(Problems with circular references)-->ppl changing imported value in one file,doesnt show in other module.
  * Sync module resolution,Loader(Slow)Resolution algo is slow,Its build into node but its really slow coz its synchronous.
  * 
-  Solution:Bundlers/Linkers:Browerify(static),RequireJS(Loader),SystemJs(Loader) or js that runs in browser that is responsible for fetching modules in the
+  Solution:Bundlers/Linkers:Browerify[bundler](static),RequireJS(Loader),SystemJs(Loader) or js that runs in browser that is responsible for fetching modules in the
   run time
   
   Problems with RequireJs:
