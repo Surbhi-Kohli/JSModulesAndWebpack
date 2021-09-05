@@ -15,6 +15,9 @@ scripts:{
   //npm run seanLarkin
   This command looks for entry property and it defaults to src/index.js and 
   
+  ##Webpack without config
+  Before webpack4,pl were only required to provide entry and exit property.But now in webpack 4 its taken as default to ./src,but u get a warning when u run webpck without a config that u have not specified mode
+  npm has the capability to compose scripts
   
   ## Adding npm scripts for Environment Builds 
   
@@ -27,6 +30,7 @@ scripts:{
   //package.json
   "seanLarkin":"webpack"
   "dev": "npm run seanLarkin -- --mode development" // --  pipes in the next  argument to the original command
+  //u are composing without the need to re-write a command
   
   ```
   no we will run 
