@@ -329,7 +329,9 @@ Old browsers do not understand type="module". Scripts of an unknown type are jus
 </script>
 
    ```
-   ### Build tools
+    
+### Build tools
+    
     
 In real-life, browser modules are rarely used in their “raw” form. Usually, we bundle them together with a special tool such as Webpack and deploy to the production server.
 
@@ -339,7 +341,8 @@ Build tools do the following:
 
 1.Take a “main” module, the one intended to be put in <script type="module"> in HTML.
 2.Analyze its dependencies: imports and then imports of imports etc.
-3.Build a single file with all modules (or multiple files, that’s tunable), replacing native import calls with bundler functions, so that it works. “Special”       module types like HTML/CSS modules are also supported.
+3.Build a single file with all modules (or multiple files, that’s tunable), replacing native import calls with bundler functions, so that it works. 
+    “Special”  module types like HTML/CSS modules are also supported.
 4.In the process, other transformations and optimizations may be applied:
    * Unreachable code removed.
    * Unused exports removed (“tree-shaking”).
