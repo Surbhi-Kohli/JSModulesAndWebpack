@@ -58,8 +58,9 @@ require() is a function u can pass anywhere,so people were abusing its usage
   Browserify set out to allow use of CommonJS formatted modules in the browser. Consequently, Browserify isn’t as much a module loader as a module bundler: Browserify is entirely a build-time tool, producing a bundle of code which can then be loaded client-side.Write your modules in CommonJS format, and when happy, issue the command to bundle:
 browserify entry-point.js -o bundle-name.js
 Browserify recursively finds all dependencies of entry-point and assembles them into a single file:
+```
 <script src=”bundle-name.js”></script>
-
+```
   
   ESM:Static,Reusable,encapsulated,organized,convenient
   Problem:ESM for node???
