@@ -21,6 +21,9 @@ require(['log'], function (logModule) {
 });
 
 ```
+Problems with RequireJS:
+No static analysis: require() is a function u can pass anywhere so without evaluating the whole function,RequireJs(or loaders) won't know if there's a require() function somewhere within.
+No async/lazy loading(all bundles up front) : although commonjs is dynamic module ,but theres no way to async load something. commonjs is too dynamic module format to be able to write optimised code.
 
  ## UMD:Universal Module Definition
  
