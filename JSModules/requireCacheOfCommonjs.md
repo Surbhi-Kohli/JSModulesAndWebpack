@@ -1,3 +1,4 @@
+### https://bambielli.com/til/2017-04-30-node-require-cache/    Learnt this while implementing internal module mocking by KCD
 node: require.cache
 
 TIL that node’s require method maintains a cache of the modules that have been imported.
