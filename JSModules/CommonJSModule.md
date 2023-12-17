@@ -49,7 +49,56 @@ In CommonJS, every file is its own module. The variables, functions, and objects
 #### 4. No runtime/async module loading
 #### import via “require”
 #### export via “module.exports”
-#### When you import you get back an object
+#### When you import you get back an object , no live changes support :
+ What we receive from require is not a copy. It's a reference to the exports object.
+                // counter.js
+                let count = 0;
+                function increment() { count++; }
+                module.exports = { increment, count, getCount };
+                
+                // app.js
+                const counter = require("./counter");
+                counter.increment();
+                console.log(counter.count); // Outputs: 0, not 1!
+
+Another example:
+
+               //------ lib.js ------
+                var counter = 3;
+                function incCounter() {
+                    counter++;
+                }
+                module.exports = {
+                    counter: counter, // (A)
+                    incCounter: incCounter,
+                };
+
+                //------ main1.js ------
+                var counter = require('./lib').counter; // (B)
+                var incCounter = require('./lib').incCounter;
+                
+                // The imported value is a (disconnected) copy of a copy
+                console.log(counter); // 3
+                incCounter();
+                console.log(counter); // 3
+
+               // The imported value can be changed
+               counter++;
+               console.log(counter); // 4
+               If you access the value via the exports object, it is still copied once, on export:
+               
+               //------ main2.js ------
+               var lib = require('./lib');
+               
+               // The imported value is a (disconnected) copy
+               console.log(lib.counter); // 3
+               lib.incCounter();
+               console.log(lib.counter); // 3
+
+               // The imported value can be changed
+               lib.counter++;
+               console.log(lib.counter); // 4
+                
 #### No tree shaking, because when you import you get an object
 #### No static analyzing, as you get an object, so property lookup is at runtime
 #### You always get a copy of an object, so no live changes in the module itself
