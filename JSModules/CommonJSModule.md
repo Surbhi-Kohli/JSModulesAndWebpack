@@ -111,6 +111,25 @@ Another example:
 
 #### Poor cyclic dependency management, but they are supported:
 Since require() can be called not just at the top level, but anywhere within a module, where there may also be circular references , this leads to inconsistencies .
+A scenario where cyclic dependency is handled fine:
+The following CommonJS code correctly handles two modules a and b cyclically depending on each other.
+
+            //------ a.js ------
+            var b = require('b');
+            function foo() {
+                b.bar();
+            }
+            exports.foo = foo;
+            
+            //------ b.js ------
+            var a = require('a'); // (i)
+            function bar() {
+                if (Math.random()) {
+                    a.foo(); // (ii)
+                }
+            }
+            exports.bar = bar;
+If module a is imported first then, in line i, module b gets a’s exports object before the exports are added to it. Therefore, b cannot access a.foo in its top level, but that property exists once the execution of a is finished. If bar() is called afterwards then the method call in line ii works.
 #### Simple Syntax
 
 To avoid loading the same module multiple times, require keeps a store (cache) of already loaded modules. 
