@@ -48,9 +48,9 @@ In CommonJS, every file is its own module. The variables, functions, and objects
 
 
 #### 4. No runtime/async module loading
-#### import via “require”
-#### export via “module.exports”
-#### When you import you get back an object , no live changes support :
+#### 5. import via “require”
+#### 6. export via “module.exports”
+#### 7. When you import you get back an object , no live changes support :
  What we receive from require is not a copy. It's a reference to the exports object.
  
                 // counter.js
