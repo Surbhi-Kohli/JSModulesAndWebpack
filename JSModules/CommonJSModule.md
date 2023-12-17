@@ -1,6 +1,6 @@
 
 The most widely used approach to bolted-on JavaScript modules is called CommonJS modules. 
-Node.js uses it and is the system used by most packages on NPM.CommonJS modules were designed with server-side development in mind.How would you load js, if there was no script tag,no html, in node. Thats how commonjs came into picture.
+Node.js uses it and is the system used by most packages on NPM.CommonJS modules were designed with server-side development in mind.How would you load js, if there was no script tag,no html, in node. Thats how commonjs came into picture.The CommonJS group defined a module format to solve JavaScript scope issues by making sure each module is executed in its own namespace. This is achieved by forcing modules to explicitly export those variables it wants to expose to the "universe", and also by defining those other modules required to properly work.
 
 The main concept in CommonJS modules is a function called require. When you call this with the module name of a dependency,
 it makes sure the module is loaded and returns its interface.
@@ -48,7 +48,7 @@ In CommonJS, every file is its own module. The variables, functions, and objects
 
 
 #### 4. No runtime/async module loading:
-Modules are loaded synchronously, meaning the program waits for the module to be fully loaded and executed before moving on.Hence we don't get  Browser support.Synchronous API makes it unsuitable for certain uses (client-side).In order to make commonJS suitable for client-side, browsers require a loader library or transpiler.
+Modules are loaded synchronously, meaning the program waits for the module to be fully loaded and executed before moving on. The browser doesn't understand require and export. Second, it loads modules synchronously which in the browser would be a terrible user experience. If we can fix those two problems, we're in good shape.Synchronous API makes it unsuitable for certain uses (client-side).In order to make commonJS suitable for client-side, browsers require a loader library or transpiler or bundler.
 #### 5. import via “require”
 #### 6. export via “module.exports”
 #### 7. When you import you get back an object , no live changes support :
@@ -140,3 +140,11 @@ exports.blue=blue;
 exports.makeColorStyle=makeColorStyle
 
 ```
+
+## Solving problems on commonjs via bundlers
+What a JavaScript module bundler does is it examines your codebase, looks at all the imports and exports, then intelligently bundles all of your modules together into a single file that the browser can understand. Then instead of including all the scripts in your index.html file and worrying about what order they go in, you include the single bundle.js file the bundler creates for you.
+Commonly used bundlers are Browserify and webpack
+
+app.js ---> |         |
+users.js -> | Bundler | -> bundle.js
+dom.js ---> |         |
