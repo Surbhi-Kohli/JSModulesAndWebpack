@@ -148,3 +148,6 @@ Commonly used bundlers are Browserify and webpack
 app.js ---> |         |
 users.js -> | Bundler | -> bundle.js
 dom.js ---> |         |
+
+Refer:
+https://github.com/Surbhi-Kohli/JSModulesAndWebpack/tree/main/JSModules/Browserify#readme
