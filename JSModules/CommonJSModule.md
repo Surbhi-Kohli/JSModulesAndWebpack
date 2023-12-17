@@ -41,8 +41,9 @@ In CommonJS, every file is its own module. The variables, functions, and objects
            // another.js
            const counter = require("./counter");
            console.log(counter.getCount()); // Outputs: 1
-           /*Node.js doesn't re-execute the counter.js module. Instead, it retrieves the cached 
-            exports from the first require call in app.js. This is 
+           /* Node.js doesn't re-execute the counter.js module. 
+             Instead, it retrieves the cached exports from the 
+             first require call in app.js. This is 
             the singleton behavior in action.*/
 
 
@@ -51,6 +52,7 @@ In CommonJS, every file is its own module. The variables, functions, and objects
 #### export via “module.exports”
 #### When you import you get back an object , no live changes support :
  What we receive from require is not a copy. It's a reference to the exports object.
+ 
                 // counter.js
                 let count = 0;
                 function increment() { count++; }
