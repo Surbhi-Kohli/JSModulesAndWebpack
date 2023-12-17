@@ -1,3 +1,4 @@
+
 The most widely used approach to bolted-on JavaScript modules is called CommonJS modules. 
 Node.js uses it and is the system used by most packages on NPM.CommonJS modules were designed with server-side development in mind.How would you load js, if there was no script tag,no html, in node. Thats how commonjs came into picture.
 
@@ -40,6 +41,10 @@ In CommonJS, every file is its own module. The variables, functions, and objects
            // another.js
            const counter = require("./counter");
            console.log(counter.getCount()); // Outputs: 1
+           /*Node.js doesn't re-execute the counter.js module. Instead, it retrieves the cached 
+            exports from the first require call in app.js. This is 
+            the singleton behavior in action.*/
+
 
 #### 4. No runtime/async module loading
 #### import via “require”
