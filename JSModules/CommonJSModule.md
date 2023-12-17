@@ -146,10 +146,7 @@ What a JavaScript module bundler does is it examines your codebase, looks at all
 Commonly used bundlers are Browserify and webpack
 
 app.js ---> |         |  
-
 users.js -> | Bundler | -> bundle.js
-
-
 dom.js ---> |         |
 
 Refer:
