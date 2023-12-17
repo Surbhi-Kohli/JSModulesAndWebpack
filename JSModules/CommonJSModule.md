@@ -11,11 +11,9 @@ All they have to do is call require to access their dependencies and put their i
 ##  CommonJS Features
 
 #### 1. Implemented by node, used for the server side when you have modules installed.
-#### 2. import via “require”
-#### 3. export via “module.exports”
-#### 4. Module Definition: 
+#### 2. Module Definition: 
 In CommonJS, every file is its own module. The variables, functions, and objects you define in a file are local to that file unless explicitly exported.
-#### 5. Module Caching:
+#### 3. Module Caching:
  Modules are cached after the first time they are loaded, improving performance and ensuring that module initialization only happens once. This means (among other things) that every call to require('foo') will get exactly the same object returned, if it would resolve to the same file. **This ensures that all parts of an application share the same instance of the module, making it stateful.** Provided require.cache is not modified, multiple calls to require('foo') will not cause the module code to be executed multiple times. This is an important feature. With it, "partially done" objects can be returned, thus allowing transitive dependencies to be loaded even when they would cause cycles.
 
  Important read: https://bambielli.com/til/2017-04-30-node-require-cache/
@@ -49,13 +47,13 @@ In CommonJS, every file is its own module. The variables, functions, and objects
             the singleton behavior in action.*/
 
 
-#### 6. No runtime/async module loading:
-Modules are loaded synchronously, meaning the program waits for the module to be fully loaded and executed before moving on.Synchronous API makes it unsuitable for certain uses (client-side)as this can pose a few performance issues for large-scale applications that have hundreds of modules. 
-So there is by default ,No Browser support.
-In order to make commonJS suitable for client-side, browsers require a loader library or transpiler,Bundlers and linkers like Browserify(static),RequireJs(Loader),SystemJS(Loader) .So these bundlers started to be created, what they do,their main premise is to allow you to write CommonJS modules.Module loaders are libraries that load, interpret, and execute JavaScript in the browser at run-time.So tools like Bundlers/Linkers:Browerify(bundler)(static),RequireJS(Loader),SystemJs(Loader) can be used to fetch and execute modules at run-time and hence solve issues related to commonjs on client-side.
-
+#### 4. No runtime/async module loading:
+Modules are loaded synchronously, meaning the program waits for the module to be fully loaded and executed before moving on.Hence we don't get  Browser support.Synchronous API makes it unsuitable for certain uses (client-side).In order to make commonJS suitable for client-side, browsers require a loader library or transpiler.
+#### 5. import via “require”
+#### 6. export via “module.exports”
 #### 7. When you import you get back an object , no live changes support :
  What we receive from require is not a copy. It's a reference to the exports object.
+So if there are changes made by a file to a module it has imported, the changes won’t reflect at other places where the module is imported.
  
                 // counter.js
                 let count = 0;
@@ -106,12 +104,13 @@ Another example:
                lib.counter++;
                console.log(lib.counter); // 4
                 
-#### 8.No tree shaking, because when you import you get an object
+#### No tree shaking, because when you import you get an object
 #### No static analyzing, as you get an object, so property lookup is at runtime
 #### You always get a copy of an object, so no live changes in the module itself
 
 
-#### Poor cyclic dependency management, but they are supported
+#### Poor cyclic dependency management, but they are supported:
+Since require() can be called not just at the top level, but anywhere within a module, where there may also be circular references , this leads to inconsistencies .
 #### Simple Syntax
 
 To avoid loading the same module multiple times, require keeps a store (cache) of already loaded modules. 
