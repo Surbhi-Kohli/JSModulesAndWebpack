@@ -47,13 +47,13 @@ In CommonJS, every file is its own module. The variables, functions, and objects
             the singleton behavior in action.*/
 
 
-#### 4. No runtime/async module loading:
+#### 4. No runtime/async module loading or lazy loading:
 Modules are loaded synchronously, meaning the program waits for the module to be fully loaded and executed before moving on. The browser doesn't understand require and export. Second, it loads modules synchronously which in the browser would be a terrible user experience. If we can fix those two problems, we're in good shape.Synchronous API makes it unsuitable for certain uses (client-side).In order to make commonJS suitable for client-side, browsers require a loader library or transpiler or bundler.
 #### 5. import via “require”
 #### 6. export via “module.exports”
-#### 7. When you import you get back an object , no live changes support :
+#### 7. When you import you get back an object , no live bindings support :
  What we receive from require is not a copy. It's a reference to the exports object.
-So if there are changes made by a file to a module it has imported, the changes won’t reflect at other places where the module is imported.
+So if there are changes made by a file to a module it has imported, the changes won’t reflect at other places where the module is imported.The problems show up in circular references and self referencing modules.
  
                 // counter.js
                 let count = 0;
@@ -167,7 +167,7 @@ Commonly used bundlers are Browserify and webpack
 app.js ---> |         |    
 users.js -> | Bundler | -> bundle.js  
 dom.js ---> |         |  
- 
+ But there can be problems with bundlers.In case a module takes require and you pass a require function in, and then you call it a different require.And there's no way for bundlers to be able to statically analyze this stuff.We can't know without evaluating the code what's happening with this function.And so,  you end up with a lot ofproblems with getting really bloated bundles.
 Refer:
 https://github.com/Surbhi-Kohli/JSModulesAndWebpack/tree/main/JSModules/Browserify#readme
 
