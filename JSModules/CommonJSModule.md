@@ -9,10 +9,10 @@ All they have to do is call require to access their dependencies and put their i
 
 ##  CommonJS Features
 
-#### Implemented by node, used for the server side when you have modules installed.
-#### Module Definition: 
+#### 1. Implemented by node, used for the server side when you have modules installed.
+#### 2. Module Definition: 
 In CommonJS, every file is its own module. The variables, functions, and objects you define in a file are local to that file unless explicitly exported.
-#### Module Caching:
+#### 3. Module Caching:
  Modules are cached after the first time they are loaded, improving performance and ensuring that module initialization only happens once. This means (among other things) that every call to require('foo') will get exactly the same object returned, if it would resolve to the same file. **This ensures that all parts of an application share the same instance of the module, making it stateful.** Provided require.cache is not modified, multiple calls to require('foo') will not cause the module code to be executed multiple times. This is an important feature. With it, "partially done" objects can be returned, thus allowing transitive dependencies to be loaded even when they would cause cycles.
 
  Important read: https://bambielli.com/til/2017-04-30-node-require-cache/
@@ -41,7 +41,7 @@ In CommonJS, every file is its own module. The variables, functions, and objects
            const counter = require("./counter");
            console.log(counter.getCount()); // Outputs: 1
 
-#### No runtime/async module loading
+#### 4. No runtime/async module loading
 #### import via “require”
 #### export via “module.exports”
 #### When you import you get back an object
