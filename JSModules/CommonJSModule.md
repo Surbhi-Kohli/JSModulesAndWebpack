@@ -87,7 +87,8 @@ Another example:
                // The imported value can be changed
                counter++;
                console.log(counter); // 4
-               If you access the value via the exports object, it is still copied once, on export:
+              /* If you access the value via the exports object, it is still 
+               copied once, on export:*/
                
                //------ main2.js ------
                var lib = require('./lib');
