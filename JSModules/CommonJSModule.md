@@ -9,7 +9,7 @@ All they have to do is call require to access their dependencies and put their i
 
 ##  CommonJS Features
 
-#### Implemented by node ,  Used for the server side when you have modules installed
+#### Implemented by node, used for the server side when you have modules installed.
 #### Module Definition: 
 In CommonJS, every file is its own module. The variables, functions, and objects you define in a file are local to that file unless explicitly exported.
 #### Module Caching:
@@ -19,27 +19,27 @@ In CommonJS, every file is its own module. The variables, functions, and objects
 
             //Example demonstrating caching of module imports
 
- // counter.js
- let count = 0;
-function increment() {
- count++;
-}
-function getCount() {
- return count;
-}
-module.exports = { increment, count, getCount };
+            // counter.js
+            let count = 0;
+           function increment() {
+            count++;
+           }
+           function getCount() {
+            return count;
+           }
+           module.exports = { increment, count, getCount };
 
 
-// app.js
-const counter = require("./counter");
-console.log(counter.getCount()); // Outputs: 0
-counter.increment();
-console.log(counter.getCount()); // Outputs: 1
-require("./another");
-
-// another.js
-const counter = require("./counter");
-console.log(counter.getCount()); // Outputs: 1
+           // app.js
+           const counter = require("./counter");
+           console.log(counter.getCount()); // Outputs: 0
+           counter.increment();
+           console.log(counter.getCount()); // Outputs: 1
+           require("./another");
+           
+           // another.js
+           const counter = require("./counter");
+           console.log(counter.getCount()); // Outputs: 1
 
 #### No runtime/async module loading
 #### import via “require”
