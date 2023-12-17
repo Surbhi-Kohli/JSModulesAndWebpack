@@ -47,7 +47,8 @@ In CommonJS, every file is its own module. The variables, functions, and objects
             the singleton behavior in action.*/
 
 
-#### 4. No runtime/async module loading
+#### 4. No runtime/async module loading:
+Modules are loaded synchronously, meaning the program waits for the module to be fully loaded and executed before moving on.
 #### 5. import via “require”
 #### 6. export via “module.exports”
 #### 7. When you import you get back an object , no live changes support :
@@ -106,7 +107,8 @@ Another example:
 #### No static analyzing, as you get an object, so property lookup is at runtime
 #### You always get a copy of an object, so no live changes in the module itself
 
-#### Poor cyclic dependency management
+
+#### Poor cyclic dependency management, but they are supported
 #### Simple Syntax
 
 To avoid loading the same module multiple times, require keeps a store (cache) of already loaded modules. 
