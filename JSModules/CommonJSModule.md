@@ -164,9 +164,12 @@ exports.makeColorStyle=makeColorStyle
 What a JavaScript module bundler does is it examines your codebase, looks at all the imports and exports, then intelligently bundles all of your modules together into a single file that the browser can understand. Then instead of including all the scripts in your index.html file and worrying about what order they go in, you include the single bundle.js file the bundler creates for you.
 Commonly used bundlers are Browserify and webpack
 
-app.js ---> |         |  
-users.js -> | Bundler | -> bundle.js
-dom.js ---> |         |
-
+app.js ---> |         |    
+users.js -> | Bundler | -> bundle.js  
+dom.js ---> |         |  
+ 
 Refer:
 https://github.com/Surbhi-Kohli/JSModulesAndWebpack/tree/main/JSModules/Browserify#readme
+
+
+https://2ality.com/2015/07/es6-module-exports.html, https://exploringjs.com/es6/ch_modules.html#sec_imports-as-views-on-exports
