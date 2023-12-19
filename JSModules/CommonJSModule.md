@@ -130,6 +130,8 @@ The following CommonJS code correctly handles two modules a and b cyclically dep
             }
             exports.bar = bar;
 If module a is imported first then, in line i, module b gets a’s exports object before the exports are added to it. Therefore, b cannot access a.foo in its top level, but that property exists once the execution of a is finished. If bar() is called afterwards then the method call in line ii works.
+
+Note that circular dependencies are explicitly supported in ES6 modules because they are static. They have no evaluation order. So the only time they fail is in certain build tools and runtime tools that attempt to translate them into something more linear, such as classic Node CommonJS require statements.
 #### Simple Syntax
 
 To avoid loading the same module multiple times, require keeps a store (cache) of already loaded modules. 
