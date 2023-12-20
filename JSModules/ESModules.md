@@ -119,3 +119,18 @@ This means that if you happen to have a URL that returns a JavaScript file but d
 #### Tree shakeable, because of static analyzing supported by ES6
 #### Always get an actual value so live changes in the module itself
 #### Better cyclic dependency management than CommonJS
+
+
+frontend masters:
+This is not es 2015 module.ES modules, completely separate from ES2015.
+You could write ES3 syntax andstill use modules and there's no problem with that.
+Specifically ESM defines the import, the syntax here, the export,the static behavior, the module loading, how the browsers are supposed to load it.
+Benefits: Reusability,Encapsulation,organized, convenient.
+Problems:
+ESM for node??
+They had to create an entire task force of over 20 open source teams.Just to try to settle on semantics andit's still in process as we speak right now.And so, yes, ESM for node is kind of up in the air.
+How does esm  work natively in the browser?Have you guys tried using modules natively in the browser?They're incredibly slow.I would say slow to a point that they're basically broken.
+It's completely unusable past 10 modules.Or even that takes forever.When you think about it,when you're using that syntax, the browser has to basically read top down.
+When you think about it,when you're using that syntax, the browser has to basically read top down.It needs to start at import statement.It needs to look at that specifier, where that package is.It needs to go resolve it.It needs to then figure out all those exports actually there valid?
+Then it needs to read that file and do the exact same thing until it finds everyother module that it's referencing at run time, when you load your page.
+using ESM natively for the browser is not an option I would ever recommend to anyone,under any scenario.I don't care if it's, you're just using one module, it's still incredibly slow.
