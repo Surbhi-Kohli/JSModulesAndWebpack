@@ -14,9 +14,9 @@ scripts:{
 
 
 ```
-//to run --> npm run <nameOfTheScript>  
+//to run --> yarn run <nameOfTheScript>  
 
-  //npm run webpack
+  //yarn run webpack
   the comand runs successfuly, but there is no webpack config provided.So how does this work.
   This command looks for entry property and it defaults to src/index.js and 
  
@@ -38,12 +38,11 @@ scripts:{
   ```
   //package.json
   "webpack":"webpack"
-  "dev": "npm run webpack -- --mode development" // --  pipes in the next  argument to the original command
+  "dev": "yarn run webpack -- --mode development" // --  pipes in the next  argument to the original command
   //u are composing without the need to re-write a command
   
   ```
-  now we will run 
-  npm run dev
+  now we will run: npm run dev or yarn dev
   <img width="475" alt="Screenshot 2023-12-25 at 3 40 35 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/fbb1eae7-dca0-41dc-88e5-28b2375c39bf">
 
    ```
