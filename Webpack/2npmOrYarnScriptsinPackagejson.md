@@ -8,30 +8,36 @@ The command in the scripts  can be any , even Bash command, but the difference i
 /*package.json*/
 
 scripts:{
-"seanLarkin":"webpack"
+"webpack":"webpack",
+"seanLarkin":"command2"
 }
 
 
 ```
 //to run --> npm run <nameOfTheScript>
-  //npm run seanLarkin
+  //npm run webpack
+  the comand runs successfuly, but there is no webpack config provided.So how does this work.
   This command looks for entry property and it defaults to src/index.js and 
+ 
+  <img width="552" alt="Screenshot 2023-12-25 at 3 30 03 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/917bb985-d29f-43d0-87de-88e414fe878d">
+
+  ## Webpack without config
   
-  ##Webpack without config
-  Before webpack4,pl were only required to provide entry and exit property.But now in webpack 4 its taken as default to ./src,but u get a warning when u run webpck without a config that u have not specified mode
-  npm has the capability to compose scripts
+  Before webpack4,you were only required to provide entry and exit property.But now in webpack 4 its taken as default to ./src/index.(js|ts)(you dont need to specify entry file),
+  but u get a warning when u run webpck without a config that u have not specified mode and webpack fell back to production mode anyways.
+  But its encouraged to provide mode , which can dev or prod, depending on whether u want faster build or optimized build.
+   Set the 'mode' option to 'developement' or 'production' to enable defaults for each environment.You can also set it to 'none' to disable any default behaviour.
   
-  ## Adding npm scripts for Environment Builds 
   
-  When you run the webpack config as above,you get a nice warning :The mode option has not been set,webpack will fallback to 'production' for this value.
-  Set the 'mode' option to 'developement' or 'production' to enable defaults for each environment.You can also set it to 'none' to disable any default behaviour.
+  ## Adding scripts for Environment Builds :npm/yarn has the capability to compose scripts
+  
   
   npm has an awesome capability to compose scripts(yarn supports this as well)
-  
+  You can provid mode within the script, without adding the webpack config.
   ```
   //package.json
-  "seanLarkin":"webpack"
-  "dev": "npm run seanLarkin -- --mode development" // --  pipes in the next  argument to the original command
+  "webpack":"webpack"
+  "dev": "npm run webpack -- --mode development" // --  pipes in the next  argument to the original command
   //u are composing without the need to re-write a command
   
   ```
@@ -40,9 +46,9 @@ scripts:{
   
    ```
   //package.json
-  "seanLarkin":"webpack"
-  "dev": "npm run seanLarkin -- --mode development" // --  pipes in the next  argument to the original command
-  "prod": "npm run seanLarkin -- --mode production"
+  "webpack":"webpack"
+  "dev": "npm run webpack -- --mode development" // --  pipes in the next  argument to the original command
+  "prod": "npm run webpack -- --mode production"
   
   
   ```
