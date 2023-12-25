@@ -1,3 +1,4 @@
+
 npm adds a bin folder(which contains binary executables and/or clis) in node modules when we run npm install and so even for webpack we have an executable file and a cli file.
 
 You cant simply run those files .npm allows u to run scripts that hoist these binary packages within its scope.To do that u need to add a script key in ur package.json
