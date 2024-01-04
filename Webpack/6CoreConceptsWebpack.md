@@ -7,17 +7,28 @@ module.exports = {
 };
 
 ### Entry:
-Tells webpack what(files) to load for the browser(What u want ur code be bundled in its contents);Compliments the output property.
-Behind the scenes:We just passed that string to webpack's compiler and then it goes resolves it and tries to create a graph.
+<img width="544" alt="Screenshot 2024-01-04 at 9 18 54 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/986d7a46-4b5b-4c0b-aff5-083f61162317">
 
-### Output: 
-Tells webpack WHERE and HOW to distribute bundles(compilations).Works with Entry
+So say you have this diagram, and you have some code, and some modules, and you have a top level file.And it imports a component, and that component imports some lib and also some other components.And that lib has a dependency.
+This is how JavaScript works.And let's say sometimes your dependencies aren't just JavaScript.Sometimes for a component library,you might rely on some SaaS or CSS or whatever.
+But the point is that that top file, that is your entry point.That is the entry.It is the root of what is now kind of a graph here.
+Entry file is the first JS file to load to "kick-off" your app.Webpack uses it as a starting point.And so we define this using an entry property in the configuration.There's a couple ways or a couple different types of data types that you can pass into the entry property.But the simplest is just a string, which is just a relative path.
+
+Tells webpack what(files) to load for the browser(What u want ur code be bundled in its contents);Compliments the output property.
+Behind the scenes:We just passed that string(relative path of entry file) to webpack's compiler and then it goes and resolves it and tries to create a graph.So when you think about entry as the concept, the entrypoint or the entry property, the entry concept is really about telling webpackwhat you want to include in the browser.What do you want your code to be bundled in its contents?
+
+### Output:
+<img width="859" alt="Screenshot 2024-01-04 at 9 25 16 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/7e3362bf-18a7-4c1e-a5e8-b264aa74e102">
+
+
+
+Tells webpack WHERE and HOW to distribute bundles(also called compilations).Works with Entry
 ```
 module.exports ={
   entry: './browser.main.ts',
   output:{
    path:'./dist',
-   filename:'./bundle.js' //in webpack 4 ,filename is set to main.js by default
+   filename:'./bundle.js' //in webpack 4 ,filename is set to main.js by default unless u specify in config file
   }
 } 
 
