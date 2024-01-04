@@ -7,7 +7,7 @@ module.exports = {
 };
 
 ### Entry:
-<img width="544" alt="Screenshot 2024-01-04 at 9 18 54 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/986d7a46-4b5b-4c0b-aff5-083f61162317">
+<img width="544" alt="Screenshot 2024-01-04 at 9 18 54 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/986d7a46-4b5b-4c0b-aff5-083f61162317">  
 
 So say you have this diagram, and you have some code, and some modules, and you have a top level file.And it imports a component, and that component imports some lib and also some other components.And that lib has a dependency.
 This is how JavaScript works.And let's say sometimes your dependencies aren't just JavaScript.Sometimes for a component library,you might rely on some SaaS or CSS or whatever.
@@ -28,14 +28,24 @@ module.exports ={
   entry: './browser.main.ts',
   output:{
    path:'./dist',
-   filename:'./bundle.js' //in webpack 4 ,filename is set to main.js by default unless u specify in config file
+   filename:'./bundle.js' //in webpack 4 ,filename is set to main.js
+                         //by default unless u specify in config file
   }
 } 
 
 ```
 ### Loaders and Rules:
-Rules:Tell webpack how to modify files before its added to dependency graph.Defines rule on how we want  to treat files that aren't js or
-  how we want to treat files that match against the specific loaders
+<img width="733" alt="Screenshot 2024-01-04 at 9 46 55 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/f75527c9-c824-4901-9d5b-28476c5e3056">  
+Right now, or at least just right up until webpack 4,we have always treated every dependency as a JavaScript module.So with rules, we tell webpack, how to treat files that are not js.
+We have a terminology named ruleset(each object containing test and use) .A rule set basically has two minimum criteria.One,  if webpack comes across something that matches one of the regular expressions here, this rules set basically says, apply this node module, which is just a function behind the scenes.And transform whatever file that comes across, as it is being resolved.So basically webpack is transforming files that are being added to your dependency graph, and based on one of the loaders that are provided.
+You're pattern matching the extension and applying a different type of transform to it.And this is a per file process.So, it's not something that just happens in bulk,and there's a very specific reason for that.
+<img width="858" alt="Screenshot 2024-01-04 at 10 00 34 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/d8a35521-b92a-4499-b524-8e49a26db1ea">
+Consider the above image: webpack's not gonna understand typescript out of the box,and it would throw out errors trying to parse that file.And so what this ruleset does is, it basically says any time that you're trying to add a dependency to the graph,if it matches this extension, apply this transform.
+Then webpack  transforms the file to JavaScript,which might also have dependency statements.So as webpack continues to traverse, it might come across something like, a specific ES syntax.  
+And even though Webpack could parse this, you probably don't support a specificsyntax in the browser, so you'd wanna transform it.So there is a very specific use case for why we even use Bable.So it works on per file basis and not bulk
+
+Rules(gist):Tell webpack how to modify files before its added to dependency graph.Defines rule on how we want  to treat files that aren't js or
+  how we want to treat files that match against the specific pattern
 Loaders: These are JS modules(functions) that takes the source file and returns it in a [modified state].Loaders tell webpack HOW to interpret and translate files.
          Transformed on a per-file basis before adding to the dependency graph
 
@@ -49,7 +59,13 @@ module:{
 }
 //this is bare minimum use-case in one rule set with just 2 criteria specified.
 ```
-We may have multiple criteria specified in one rule-set as follows
+<img width="379" alt="Screenshot 2024-01-04 at 10 06 33 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/ea591896-a8c8-4482-a583-9b18243e2382">
+
+
+We may have multiple criteria specified in one rule-set as follows.There are different types of features that help you filter and include or choose to ignore when you want to transform a file or not.There's things like include and exclude which are like,ignore any files that are coming from the node modules folder.Or let's say, use : you actually pass the loader node module string.And so you could choose to do it conditionally, or you can apply a chain of loaders.Or you could say I want it enforce.You could say I want this to run before every other loader orafter every other loader.So there's lots of different behaviors and ways that you can configure.But really this is the minimal, like this is the minimum use.
+<img width="819" alt="Screenshot 2024-01-04 at 10 15 51 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/fb4363bb-2fa8-4add-94ff-bb23d81e34dd">
+<img width="865" alt="Screenshot 2024-01-04 at 10 17 55 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/fa46d972-d566-4b46-897f-f009ad058d44">
+
 ```
 module:{
   rules:[
