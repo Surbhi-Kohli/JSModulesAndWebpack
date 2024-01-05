@@ -1,19 +1,20 @@
 ```
 //webpack.config.js
 
-module.exports={}
+//module.exports={}
    //webpack can take an object as a default export for the module ,
    //but it can also take a function that returns an object 
-   ///This syntax can be used when we want to pass variables from cli to webpack config file
+   ///
 module.exports=()=>{
   return{
-     Output:{
-       filename:"bundle.js"
+     output:{
+       filename:"bundle.js"//now ur bundled code will be in dist/bundle.js
      }
   }
 }
 
 ```
+You can pass variables from cli to webpack config file
 ### Passing variable to webpack config
 How to access environment variables from the command line?
 
@@ -33,7 +34,8 @@ the configuration and that is super valuable.
         }
     */
 
-//package.json---modified to let u pass variables from cli to webpack config file
+//package.json---modified to let u pass variables from command line to webpack
+//config file
 
 "scripts":{
          "webpack":"webpack",
@@ -42,11 +44,11 @@ the configuration and that is super valuable.
          "prod:debug":"npm run debug --env.mode production",
          "dev:debug":"npm run debug --env.mode developement"
         }
-        
+ /*So when you pass the env flag to webpack,what it does is it takes whatever value that is, in this case,it's like we're passing an object with a mode property.And it's gonna provide that to the config for you, in the inside of the function.*/       
 /* Here the webpack will consider env as an object which has a mode property.The env object will be passed to the webpack config */       
         
  module.exports=(env)=>{
- console.log(env)
+ console.log(env)//{mode:'production'}
   return{
      mode:env.mode
      output:{
@@ -66,9 +68,9 @@ the configuration and that is super valuable.
          "prod:debug":"npm run debug --envmode production",
          "dev:debug":"npm run debug --envmode developement"
         }
-        //here envmode will be a primitive value passed to webpack config 
+//here envmode will be a primitive value passed to webpack config and not an object
    module.exports=(env)=>{
-   console.log(env)
+   console.log(env)//'production'
   return{
       mode:env
      output:{
@@ -80,7 +82,7 @@ npm run prod //logs production
 
 ```
 Prefer passing in an object as u might want to pass multiple things to webpack config like test parameters or environment 
-variables.Like if u are using it from another build process like gradle or make,u can passin that value and interpolate as follows
+variables.Like if u are using it from another build process like gradle or make,u can pass in that value and interpolate as follows.
 
 ```
          "scripts":{
@@ -95,7 +97,7 @@ variables.Like if u are using it from another build process like gradle or make,
 
 ### Adding Webpack Plugins
 You may want to have separate config files and save them all in build-utils folder
-
+And this is gonna be where all of our supplemental,let's say partial configurations, or other utilities might end up.
 First install html-webpack plugin
 ```
 npm install html-webpack-plugin --save-dev 
@@ -118,3 +120,10 @@ module.exports=({mode})=>{
 }
 
 ```
+
+But you'll notice now, two assets have been emitted inside dist folder.
+So I consider html-webpack-plugin an essential, specifically forsingle page applications.Even multi-page applications, you can adapt this plugin to work.But why is it so valuable is because it injects whatever output 
+assets are there into this file for you.
+
+Even let's say if you add some caching feature, or if you change the name,it reads that data as part of the webpack life cycle and then creates an index.html file and injects into the output.
+Now what's super nice is now if I really wanted to,I could load an HTTP server and I could check this out locally.
