@@ -108,8 +108,13 @@ rules:[
 }
 
 ```
-#### Chaining Loaders
+<img width="772" alt="Screenshot 2024-01-05 at 1 00 49 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/66a4cd95-9e3e-4515-9e51-379900a3fb1e">
 
+#### Chaining Loaders 
+<img width="846" alt="Screenshot 2024-01-05 at 12 40 10 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/608d1c54-554b-49a2-a8ab-3946473bf13f">
+
+The anatomy of a loader is just a function that takes a source and it returns a new source.So when they are chained,loaders always execute from right to left.
+Now technically under the hood they actually go right left right.But the first pass going from left to right is actually just to collectmetadata, and it's not really that important.The important thing is that, they are going from right to left.
 ```
 rules:[
 { 
@@ -117,10 +122,19 @@ test:/\.less$/,
 use:['style','css','less'] //is equivalent to style(css(less())) "right to left execution" ---less is executed first 
 }
 ]
-//The anatomy of a loader is just a function that takes a source and it returns a new source .
-//Loaders always execute from right to left.Technically,under the hood they go right left right ,but the first pass 
-//from left to right is just to collect meta-data
+
 ```
+Lets say that webpack encounters a .less file depenedency,the rule is a match,
+so less-loader is applied to it .The loader converts the file to a css file.(style.css)  
+
+Then we take the css file to pass it to css loader.And what that does behind the scenes is, it converts it to the style rules in memory as an array,that style-loader is equipped to consume.  
+
+And then you'll see that once you pass that to style-loader,actually what happens is it converts it to a JavaScript module( inlineStyleInBrowser.js ) that says:Take these styles, slap it in a script tag on the browser.
+
+So, and you might be thinking to yourself ,that doesn't really seem like best practice for performance, right?And it's true.Maybe for your critical styles you could use this.But there is lots of different ways of handling assets in Webpack.And so for example we have plugins that will extract this out into single bundles instead of trying to load it through JavaScript.But this is really just a showcase.  
+
+List of loaders that work with webpack :
+<img width="845" alt="Screenshot 2024-01-05 at 12 59 07 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/384303f2-8d6a-44da-8904-d4a437718dde">
 
 ### Plugins
 
