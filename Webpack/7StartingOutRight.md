@@ -114,8 +114,8 @@ module.exports=({mode})=>{
       output:{
         filename:"bundle.js"
       },
-      plugin:[new HtmlWebpackPlugin(),
-     new webpack.progressPlugin]//any plugin that is on webpack namespace,u can access with dot syntax
+      plugins:[new HtmlWebpackPlugin(),
+     new webpack.ProgressPlugin]//any plugin that is on webpack namespace,u can access with dot syntax
     }
 }
 
@@ -127,3 +127,6 @@ assets are there into this file for you.
 
 Even let's say if you add some caching feature, or if you change the name,it reads that data as part of the webpack life cycle and then creates an index.html file and injects into the output.
 Now what's super nice is now if I really wanted to,I could load an HTTP server and I could check this out locally.
+
+
+## Webpack dev server:
