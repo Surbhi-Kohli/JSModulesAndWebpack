@@ -130,8 +130,22 @@ Now what's super nice is now if I really wanted to,I could load an HTTP server a
 
 
 ## Webpack dev server:
+What webpack-dev-server is.It is a web server based on Express.And all it's doing is webpack, instead of creating a bundle to your dist folder,it actually generates a bundle in memory.And it serves that information up to Express,which then does a web socket connection and says, hey, I just updated.
 
-The way that this isworking, so what webpack-dev-server is, is you kinda guessed.It is a web server based on Express.And all it's doing is webpack, instead of creating a bundle to your dist folder,it actually generates a bundle in memory.And it serves that information up to Express,which then does a web socket connection and says, hey, I just updated.
+package.json
+```
+ "scripts": {
+    "webpack-dev-server": "webpack-dev-server",
+    "webpack": "webpack",
+    "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js",
+    "prod": "npm run webpack -- --env.mode production",
+    "dev": "npm run webpack-dev-server -- --env.mode development",
+    "prod:debug": "npm run debug -- --env.mode production",
+    "dev:debug": "npm run debug -- --env.mode development"
+  }
+```
+Now run: ```npm run dev```
+Any changes you make in ur index.js or button.js file or css files get reflected on the server immediately on save.
 
 Essentially, **webpack-dev-server** operates as a local development server for projects using webpack, a popular module bundler for JavaScript applications.
 
