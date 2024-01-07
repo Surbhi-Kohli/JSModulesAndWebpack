@@ -130,3 +130,17 @@ Now what's super nice is now if I really wanted to,I could load an HTTP server a
 
 
 ## Webpack dev server:
+
+The way that this isworking, so what webpack-dev-server is, is you kinda guessed.It is a web server based on Express.And all it's doing is webpack, instead of creating a bundle to your dist folder,it actually generates a bundle in memory.And it serves that information up to Express,which then does a web socket connection and says, hey, I just updated.
+
+Essentially, **webpack-dev-server** operates as a local development server for projects using webpack, a popular module bundler for JavaScript applications.
+
+Typically, when you're building an application with webpack, it creates a bundled version of your code (JavaScript, CSS, etc.) and saves it to a specified directory (often called 'dist' for distribution). However, webpack-dev-server works a bit differently during the development process.
+In case u run webpack-dev-server, you wil notice that no dist folder is generated in ur project.
+Instead of physically generating this bundle in a 'dist' folder on your file system, webpack-dev-server compiles your code into a bundle but holds it in the computer's memory (RAM) temporarily. This means that your files aren't written to disk during development; instead, they're stored in memory, making the process faster.
+
+This in-memory bundle is then served to a local web server, which is based on Express.js, a popular web application framework for Node.js. Express serves this in-memory bundle to your browser, allowing you to view and interact with your application as if it were using the actual files on disk.
+
+Moreover, webpack-dev-server uses a web socket connection to communicate any changes you make to your source files in real-time. When you modify a file and save it, webpack-dev-server recompiles only the parts that changed and pushes the updated bundle to the browser immediately through this established web socket connection. This **live reloading** or **hot module replacement (HMR)** feature is immensely helpful during development as it allows you to see changes instantly without needing to manually refresh the browser.
+
+In summary, webpack-dev-server is a tool that compiles your code into an in-memory bundle, serves it via a local web server using Express.js, and facilitates real-time updates to your browser during development through a web socket connection, enhancing the development experience by speeding up the process and enabling quick feedback on code changes.
