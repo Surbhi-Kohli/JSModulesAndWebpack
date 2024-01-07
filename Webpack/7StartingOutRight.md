@@ -130,7 +130,7 @@ Now what's super nice is now if I really wanted to,I could load an HTTP server a
 
 
 ## Webpack dev server:
-What webpack-dev-server is.It is a web server based on Express.And all it's doing is webpack, instead of creating a bundle to your dist folder,it actually generates a bundle in memory.And it serves that information up to Express,which then does a web socket connection and says, hey, I just updated.
+What webpack-dev-server is.It is a web server based on Express.And all it's doing is webpack, instead of creating a bundle to your dist folder,it actually generates a bundle in memory.And it serves that information up to Express,which then does a web socket connection and says, hey, I just updated and reloads.
 
 package.json
 ```
