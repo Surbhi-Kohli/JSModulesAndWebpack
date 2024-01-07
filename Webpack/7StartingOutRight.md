@@ -158,3 +158,47 @@ This in-memory bundle is then served to a local web server, which is based on Ex
 Moreover, webpack-dev-server uses a web socket connection to communicate any changes you make to your source files in real-time. When you modify a file and save it, webpack-dev-server recompiles only the parts that changed and pushes the updated bundle to the browser immediately through this established web socket connection. This **live reloading** or **hot module replacement (HMR)** feature is immensely helpful during development as it allows you to see changes instantly without needing to manually refresh the browser.
 
 In summary, webpack-dev-server is a tool that compiles your code into an in-memory bundle, serves it via a local web server using Express.js, and facilitates real-time updates to your browser during development through a web socket connection, enhancing the development experience by speeding up the process and enabling quick feedback on code changes.
+
+## Splitting environment config files:
+origin/feature/04010-composing-configs-webpack-merge
+ So what we wanna do is we want a way to conditionally load an extra JavaScript module that's going to kind of merge in with our base set of configuration items, right?
+
+ We're able to have the mode, but how are we going to compose this object?We have this common configuration, but we need a way to merge in other configurations, right?And in a way that's safe, because this config has arrays, and so just object assign is not gonna be really valuable to you, right?And it's not gonna respect different things like array orders or other sorts of properties in your webpack config.So one of webpack maintainers actually wrote a really great library called **webpack-merge**, it's essentially just object assign for webpack-configs.
+And so there are many other options,but by default it's really just doing object assign.So if you've used object assign before, it's the exact same behavior.You can pass a simple default, and then you can add whatever other thing you want to compose in the same manner on top of it.And so you can kinda see here, what I've done is, I return webpackMerge,and our base configuration is just the first argument.
+ And so you can add it just by saying, ```npm install webpack-merge -d ```
+
+```
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpackMerge = require("webpack-merge");
+
+const modeConfig = env => require(`./build-utils/webpack.${env}`)(env);
+
+module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
+  return webpackMerge(
+    {
+      mode,
+      output: {
+        filename: "bundle.js"
+      },
+      plugins: [new HtmlWebpackPlugin(), new webpack.ProgressPlugin()]
+    },
+    modeConfig(mode)
+  );
+};
+```
+build-utils/webpack.production.js
+
+```
+module.exports = () => ({
+  output: {
+    filename: "[chunkhash].js" /*We can use these string helpers that webpack provides out of the box.And this allows us to have hashing for JavaScript modules when they're created.So technically in theory,we can just add this tiny partial that is this partial config here.*/
+  }
+});
+
+```
+
+Now in your dist folder, for prod build, a hashedfile name would be generated which would automatically be added in script in index.html
+
+ And then you'll see modeConfig, which returns either a production ordevelopment configuration, is added on second.So I'll just add this code in together here.So webpackMerge, so now we're just returning a functionthat will return our composed configuration, right?
+ And the second argument to it will be our modeConfig.
