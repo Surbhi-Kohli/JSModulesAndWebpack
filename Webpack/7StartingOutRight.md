@@ -145,7 +145,7 @@ package.json
   }
 ```
 Now run: ```npm run dev```
-Any changes you make in ur index.js or button.js file or css files get reflected on the server immediately on save.
+Any changes you make in ur index.js or button.js file or css files get reflected on the server immediately on save.It auto-runs in watch mode.
 
 Essentially, **webpack-dev-server** operates as a local development server for projects using webpack, a popular module bundler for JavaScript applications.
 
