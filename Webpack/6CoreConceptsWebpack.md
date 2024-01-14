@@ -5,6 +5,10 @@ built-in optimizations that correspond to each environment. The default value is
 module.exports = {
   mode: 'production',
 };
+In dev mode, the generated code has eval.
+<img width="780" alt="Screenshot 2024-01-14 at 3 37 26 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/4a424410-65f7-4463-acb4-dd63ba076e36">
+We can set devtool to none , to increase readability of the dev build code
+<img width="391" alt="Screenshot 2024-01-14 at 3 37 54 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/13cbb516-19fc-4201-b0ee-3ac548b35a57">
 
 ### Entry:
 <img width="544" alt="Screenshot 2024-01-04 at 9 18 54 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/986d7a46-4b5b-4c0b-aff5-083f61162317">  
