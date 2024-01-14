@@ -1,4 +1,4 @@
-## Hot Module Replacement
+## Hot Module Replacement or live reloading
 
 
 ## Live Binding
