@@ -35,6 +35,11 @@ module.exports ={
 
 ```
 ### Loaders and Rules:
+
+Out of the box, webpack only understands JavaScript and JSON files. Loaders allow webpack to process other types of files and convert them into valid modules that can be consumed by your application and added to the dependency graph.
+
+ They allow you to pre-process files as you import or “load” them. Thus, loaders are kind of like “tasks” in other build tools and provide a powerful way to handle front-end build steps. Loaders can transform files from a different language (like TypeScript) to JavaScript or load inline images as data URLs. Loaders even allow you to do things like import CSS files directly from your JavaScript modules!
+ 
 <img width="733" alt="Screenshot 2024-01-04 at 9 46 55 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/f75527c9-c824-4901-9d5b-28476c5e3056">  
 Right now, or at least just right up until webpack 4,we have always treated every dependency as a JavaScript module.So with rules, we tell webpack, how to treat files that are not js.
 We have a terminology named ruleset(each object containing test and use) .A rule set basically has two minimum criteria.One,  if webpack comes across something that matches one of the regular expressions here, this rules set basically says, apply this node module, which is just a function behind the scenes.And transform whatever file that comes across, as it is being resolved.So basically webpack is transforming files that are being added to your dependency graph, and based on one of the loaders that are provided.
@@ -141,6 +146,7 @@ List of loaders that work with webpack :
 While loaders are used to transform certain types of modules, plugins can be leveraged to perform a wider range of tasks 
 like bundle optimization, asset management and injection of environment variables.
 
+A webpack plugin is a JavaScript object that has an apply method. This apply method is called by the webpack compiler, giving access to the entire compilation lifecycle.
 
 Plugins add additional functionality to Compilations(optimized bundled modules).More powerful with more acces to CompilerAPI.
 Does everything else that you'd ever want to in a webpack.Loaders are applied on per-file basis.But plugins can work on the whole bundle
