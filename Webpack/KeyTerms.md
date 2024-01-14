@@ -1,3 +1,15 @@
+## Hot Module Replacement
+
+
+## Live Binding
+
+
+## Cyclic Dependency
+
+
+##
+
+
 ## Tree shaking  = Dead code elemination
  Tree shaking or dead code elimination means that unused modules will not be included in the bundle during the build process.
  It only works with import and export(ES modules). It won’t work with CommonJS require syntax. Same applies to npm dependencies. great example is lodash, just import pick from ‘lodash/pick and your bundle will only include one small module instead of entire lodash library.
