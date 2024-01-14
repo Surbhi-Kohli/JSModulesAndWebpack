@@ -9,7 +9,7 @@ footer{
     border: 1px solid black;
 }
 ```
- The traditional way of adding css file is by just serving it in a disk folder and referencing in a style tag.But if we change this and it's affecting our code,we would want to have it tied in with our build like an incremental rebuild.Or, wouldn't it be cool if you could have it changed without even reloading?
+ The traditional way of adding css file is by just serving it in a disk folder and referencing in a style tag.But if we change the css file and it's affecting our code,we would want to have it tied in with our build like an incremental rebuild.Or, wouldn't it be cool if you could have it changed without even reloading?
  
 ```
 import { red, blue } from "./button-styles";
@@ -68,7 +68,10 @@ export { top, bottom, footer };
 
 ```
 line 54 logs the following:
-String version of styles is logged
+String version of styles is logged.  
+css-loader takes css and turns it into valid JS code, basically turn it into really long strings and make sure that it is valid JS.But is not being applied.
+style-loader takes that js and onjects it into the dom by injecting a <style> tag
+There is also a sass-loader, that can be used in case ur project has sass files.
 <img width="1142" alt="Screenshot 2024-01-14 at 1 40 03 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/eb8ec575-04cb-497d-a06a-a295a20a4b70">
 So we need to add style-loader.
 Style loader adds the script tag in the browser.It consumes that array that css loader passes to it.
