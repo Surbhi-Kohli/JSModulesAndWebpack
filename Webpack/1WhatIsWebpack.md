@@ -4,6 +4,9 @@ https://github.com/papers-we-love/papers-we-love
 
 Webpack is a module bundler.It lets you write any module format(even mixed),compiles them for the browser.Supports static async bundling(code splitting)
   You can create separate lazy loaded bundles at build time(nothing dynamic)
+  It does 2 main things:
+  It bundles our code/assets together.
+  It manages dependencies
   ### Why webpack?
   
   #### Going back to history:There are primarily only 2 ways to use JS in browser
