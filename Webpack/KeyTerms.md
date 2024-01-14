@@ -7,8 +7,10 @@
 ## Cyclic Dependency
 
 
-##
+## Code Splitting
 
+
+## Lazy Loading
 
 ## Tree shaking  = Dead code elemination
  Tree shaking or dead code elimination means that unused modules will not be included in the bundle during the build process.
