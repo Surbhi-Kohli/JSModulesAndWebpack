@@ -192,7 +192,10 @@ build-utils/webpack.production.js
 ```
 module.exports = () => ({
   output: {
-    filename: "[chunkhash].js" /*We can use these string helpers that webpack provides out of the box.And this allows us to have hashing for JavaScript modules when they're created.So technically in theory,we can just add this tiny partial that is this partial config here.*/
+    filename: "[chunkhash].js" /*We can use these string helpers that webpack provides
+ out of the box.And this allows us to have hashing for JavaScript modules
+when they're created.So technically in theory,we can just add this tiny partial
+that is this partial config here.*/
   }
 });
 
