@@ -136,9 +136,12 @@ use:['style','css','less'] //is equivalent to style(css(less())) "right to left 
 Lets say that webpack encounters a .less file depenedency,the rule is a match,
 so less-loader is applied to it .The loader converts the file to a css file.(style.css)  
 
-Then we take the css file to pass it to css loader.And what that does behind the scenes is, it converts it to the style rules in memory as an array,that style-loader is equipped to consume.  
+Then we take the css file to pass it to css loader.And what that does behind the scenes is, it converts it to the style rules in memory as an array( valid javascript),that style-loader is equipped to consume.  
+The style-loader adds css to DOM by injecting a <style> tag: 
 
-And then you'll see that once you pass that to style-loader,actually what happens is it converts it to a JavaScript module( inlineStyleInBrowser.js ) that says:Take these styles, slap it in a script tag on the browser.
+<img width="357" alt="Screenshot 2024-01-20 at 3 08 43 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/e0e12457-4e62-49d4-a2b0-bf218d1026cc">
+ 
+ And then you'll see that once you pass that to style-loader,actually what happens is it converts it to a JavaScript module( inlineStyleInBrowser.js ) that says:Take these styles, slap it in a script tag on the browser.
 
 So, and you might be thinking to yourself ,that doesn't really seem like best practice for performance, right?And it's true.Maybe for your critical styles you could use this.But there is lots of different ways of handling assets in Webpack.And so for example we have plugins that will extract this out into single bundles instead of trying to load it through JavaScript.But this is really just a showcase.  
 
