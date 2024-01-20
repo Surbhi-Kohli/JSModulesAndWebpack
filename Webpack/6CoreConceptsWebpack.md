@@ -229,3 +229,151 @@ where other things are in the scope and whether its being used(It only knows abo
 Tip: When u want to interact more with the compiler runtime,or the event lifecycle or for functionality at the bundle level ,plugins are the way to go.
 
 DID YOU KNOW: 80% of webpack is made up of its own plugin system.Webpack is completely event driven architecture and so all of the webpack source code is all of these plugins.
+
+### HTMLWebpackPlugin
+The HtmlWebpackPlugin simplifies creation of HTML files to serve your webpack bundles. This is especially useful for webpack bundles that **include a hash in the filename which changes every compilation**(See Cache Busting below). You can either let the plugin generate an HTML file for you(where ur main js file will be auto included with hashed name), supply your own template using lodash templates, or use your own loader.
+Usage:``npm install --save-dev html-webpack-plugin``
+
+webpack config:
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
+module.exports = {
+  entry: 'index.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'index_bundle.js',
+  },
+  plugins: [new HtmlWebpackPlugin()],
+};
+
+This will generate a file dist/index.html containing the following:
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>webpack App</title>
+  </head>
+  <body>
+    <script src="index_bundle.js"></script>
+  </body>
+</html>
+```
+If you have multiple webpack entry points, they will all be included with <script> tags in the generated HTML.
+If you have any CSS assets in webpack's output (for example, CSS extracted with the MiniCssExtractPlugin) then these will be included with <link> tags in the <head> element of generated HTML.
+https://webpack.js.org/plugins/html-webpack-plugin/
+
+
+You can pass template html file, which should be used and in which the script tag should be included 
+<img width="844" alt="Screenshot 2024-01-20 at 4 31 51 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/263ba7ae-07f9-43ad-8f9b-d72183464e01">  
+
+<img width="681" alt="Screenshot 2024-01-20 at 4 33 20 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/b57f44ed-8e7d-4273-9187-116b74e08de2">
+
+```
+##  Cache Busting:
+So we're using webpack to bundle our modular application which yields a deployable /dist directory. Once the contents of /dist have been deployed to a server, clients (typically browsers) will hit that server to grab the site and its assets. The last step can be time consuming, which is why browsers use a technique called caching. This allows sites to load faster with less unnecessary network traffic. However, it can also cause headaches when you need new code to be picked up.
+
+
+Imagine u are on a website and you reload(not hard reload).
+The browser might use cached files instead of fetching them from server , assuming that since file name is same as previous , so nothing might have changed.
+<img width="1059" alt="Screenshot 2024-01-20 at 3 28 38 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/ad1ff67b-8152-4624-bf3a-b90fe8ef655d">
+
+Imagine that you completely re-wrote ur code and bundled it as index.js.But since the file name did not change, the browser used the cached version only , for the user.
+This would be a big problem.
+So webpack has a feature where we can add a hash in our file name.
+Using [contentHash]:
+If the contents of file dont change, on rebuild, same hash would be generated eg index.bcbcbjbkrj.js .But if the contents change, then a new hash would be generated(file name changes to : index.jubttr.js) and browser's cache would get busted and it would fetch the new file
+Using [chunkhash]:
+```
+module.exports = () => ({
+  output: {
+    filename: "main.[chunkhash].js"
+  },module:{
+    rules:[
+      { test:/\.css$/,
+      use:["style-loader","css-loader"]
+    }
+  ]
+  }
+});
+```
+ 
+ ## Medium Article:https://medium.com/@web_developer/hash-vs-chunkhash-vs-contenthash-e94d38a32208
+Recently i was going through some Github threads and i saw lot’s of people are pretty confused about the difference between “Hash vs chunkhash vs ContentHash”. So i thought of trying to clarify it. For this article we will go through following:
+
+Why we require hashing.
+Types of hashing.
+Explain each type with usage.
+slicing of hashes.
+Why we require hashing:
+Let’s try to understand why we require concept of hashes at first place. For each app we develop we try to have “long term caching of static content”. But if we will not update file paths, than browser will still serve cached resources for user. In other words, user won’t able to see updated features. So traditionally we used to add version for each file across new build like this.
+
+app.js?build=1
+vendor.css?build=1
+main.css?build=1
+So now-a-days we use webpack to build our resources with webpack as it’s very easier to use. So here comes the concept of hashing in webpack which allow us to generate new hashes for each chunk across new build. You can setup a basic webpack config which will do above for you.
+
+const path = require('path');
+
+module.exports = {
+  entry: {
+    vendor: './src/vendor.js',
+    main: './src/index.js'
+  },
+  output: {
+    path: path.join(__dirname, 'build'),
+    filename: '[name].[hash].js'
+  }
+};
+Above config will create following output.
+
+Hash: 55e765r56798c278ytr6
+Version: webpack 1.10.1
+Time: 76ms
+Asset Size Chunks Chunk Names
+main.55e765r56798c278ytr6.js 1.43 kB 0 [emitted] main
+vendor.55e765r56798c278ytr6.js 1.43 kB 1 [emitted] vendor
+[0] ./src/index.js 46 bytes {0} [built]
+[0] ./src/vendor.js 40 bytes {1} [built]
+The problem with above webpack config implementation is that we are unable to achieve long term caching that browser provide as it create a new hash 55e765r56798c278ytr6 for each chunk. In ideal situation, we want to update only those chunks hashes for our new deployment/build, for which something really have changed on our development side. So that for next time user open our app after a new deployment, user don’t really have to download all the assets again from the server. They should only fetch resources which we have made changes for.
+
+So now webpack provide option for using different type of hashing that you can use based on your requirements.
+
+Types of Hashing:
+Webpack provide three types of hashing as follow:
+
+[hash]
+[Chunkhash]
+[Contenthash]
+Let’s try to understand what are these different type of hashes and in which situation we should use them.
+
+Hash:
+
+Hash is corresponding to build. Each chunk will get same hash across the build. If anything change in your build, corresponding hash will also change.
+
+Chunkhash:
+
+Chunkhash is based on webpack entry point Each entry defined will have it’s own hash. If anything changes for that particular entry point than only corresponding hash will change.
+
+Usage:
+
+We surely want to take advantage of browser caching but using name.[hash].js for webpack output config will change each chunk across each build. In order to change hash of only that chunk for which there is corrosponding change in webpack entry, you need to use “chunkhash” instead of “hash”. In short you have to replace name.[hash].js with name.[chunkhash].js.
+
+Note: In order to use browser caching properly, you will also have to add “NamedModulesPlugin” which allows webpack to use relative path instead of incremental id for naming modules. Finally you can also separate out menifest file from all your chunks, for more information you can check here.
+
+Contenthash:
+
+Contenthash is specfic type of hash created in ExtractTextPlugin and is calculated by extracted content not by full chunk content.
+
+Usage:
+
+In case of CSS, if you use name.[chunkhash].css in ExtractTextplugin, you will get same resulted hash for both css and js chunk. Now if you will change any CSS, your resulting chunkhash will not get changed. So in order to work that properly, you need to use name.[contenthash].css. So that when there is change in CSS, your path for css will change in index.html.
+
+It’s recommended to use hash/chunkhash/contenthash for production environment as it increase compilation time. You can also use specific part of hash based on your unique requirement.
+
+Slicing Hashes:
+webpack also allow slicing of hashes. If you will write [hash:8] instead of [hash] than you will get 8c4cbfdb instead of 8c4cbfdb91ff93f3f3c5.
+
+Reference Link:
