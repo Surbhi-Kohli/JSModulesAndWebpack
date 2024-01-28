@@ -377,4 +377,6 @@ It’s recommended to use hash/chunkhash/contenthash for production environment 
 Slicing Hashes:
 webpack also allow slicing of hashes. If you will write [hash:8] instead of [hash] than you will get 8c4cbfdb instead of 8c4cbfdb91ff93f3f3c5.
 
+
+The hash string in each case is created based on the contents of the file
 Reference Link:
