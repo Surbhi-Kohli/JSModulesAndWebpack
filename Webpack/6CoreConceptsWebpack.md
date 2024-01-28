@@ -275,7 +275,6 @@ You can pass template html file, which should be used and in which the script ta
 ##  Cache Busting:
 So we're using webpack to bundle our modular application which yields a deployable /dist directory. Once the contents of /dist have been deployed to a server, clients (typically browsers) will hit that server to grab the site and its assets. The last step can be time consuming, which is why browsers use a technique called caching. This allows sites to load faster with less unnecessary network traffic. However, it can also cause headaches when you need new code to be picked up.
 
-
 Imagine u are on a website and you reload(not hard reload).
 The browser might use cached files instead of fetching them from server , assuming that since file name is same as previous , so nothing might have changed.
 <img width="1059" alt="Screenshot 2024-01-20 at 3 28 38 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/ad1ff67b-8152-4624-bf3a-b90fe8ef655d">
@@ -286,6 +285,8 @@ So webpack has a feature where we can add a hash in our file name.
 Using [contentHash]:
 If the contents of file dont change, on rebuild, same hash would be generated eg index.bcbcbjbkrj.js .But if the contents change, then a new hash would be generated(file name changes to : index.jubttr.js) and browser's cache would get busted and it would fetch the new file
 Using [chunkhash]:
+
+
 ```
 module.exports = () => ({
   output: {
