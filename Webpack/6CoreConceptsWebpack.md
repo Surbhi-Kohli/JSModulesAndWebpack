@@ -271,7 +271,7 @@ You can pass template html file, which should be used and in which the script ta
 
 <img width="681" alt="Screenshot 2024-01-20 at 4 33 20 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/b57f44ed-8e7d-4273-9187-116b74e08de2">
 
-```
+
 ##  Cache Busting:
 So we're using webpack to bundle our modular application which yields a deployable /dist directory. Once the contents of /dist have been deployed to a server, clients (typically browsers) will hit that server to grab the site and its assets. The last step can be time consuming, which is why browsers use a technique called caching. This allows sites to load faster with less unnecessary network traffic. However, it can also cause headaches when you need new code to be picked up.
 
