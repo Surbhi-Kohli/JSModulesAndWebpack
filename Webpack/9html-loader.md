@@ -9,11 +9,9 @@ it also says that every loadable attributes (for example <img src="image.png" is
 There are two underlying questions that I'm going to answer first.
 
 Q. What type of asset webpack understands by default?
-
 A. By default webpack only understands JavaScript.
 
 Q. What should we do if we want to work with other types of assets (namely HTML, CSS, images, etc.)?
-
 A. We must use loaders and plugins to expand webpack's functionality.
 
 In other words, loaders and plugins allow us to work with static assets in webpack.
@@ -25,9 +23,7 @@ const p = document.createElement("p");
 document.body.appendChild(p);
 You are using the Document Object to write to an HTML file. You can also do something like this:
 
-const html = `
-  <h1>heading level 1</h1>
-`;
+const html = `<h1>heading level 1</h1>`;
 const header = document.createElement("header");
 header.innerHTML = html;
 
