@@ -18,9 +18,10 @@ In other words, loaders and plugins allow us to work with static assets in webpa
 
 Q. What does it mean to export HTML as string?
 A. You need to remember that HTML and JavaScript are two different things. If you want to manipulate the DOM using JavaScript, you do that through APIs, for example, when you write
-
+```
 const p = document.createElement("p");
 document.body.appendChild(p);
+```
 You are using the Document Object to write to an HTML file. You can also do something like this:
 ```
 const html = `<h1>heading level 1</h1>`;
@@ -48,18 +49,18 @@ In other words, loaders and plugins allow us to work with static assets in webpa
 
 Q. What does it mean to export HTML as string?
 A. You need to remember that HTML and JavaScript are two different things. If you want to manipulate the DOM using JavaScript, you do that through APIs, for example, when you write
-
+```
 const p = document.createElement("p");
 document.body.appendChild(p);
+```
 You are using the Document Object to write to an HTML file. You can also do something like this:
-
-const html = `
-  <h1>heading level 1</h1>
-`;
+```
+const html = `<h1>heading level 1</h1>`;
 const header = document.createElement("header");
 header.innerHTML = html;
 
 document.body.appendChild(header);
+```
 The string assigned to the html variable is what's called an HTML string. Simple put, a string that contains HTML markup.
 
 This is part of what the html-loader do: it reads your HTML files and returns their contents as HTML strings that can be understand by JavaScript and used by APIs.
