@@ -9,7 +9,7 @@ footer{
     border: 1px solid black;
 }
 ```
- The traditional way of adding css file is by just serving it in a disk folder and referencing in a style tag.But if we change the css file and it's affecting our code,we would want to have it tied in with our build like an incremental rebuild.Or, wouldn't it be cool if you could have it changed without even reloading?
+ The traditional way of adding css file is by just serving it in a dis folder and referencing in a style tag.But if we change the css file and it's affecting our code,we would want to have it tied in with our build like an incremental rebuild.Or, wouldn't it be cool if you could have it changed without even reloading?
  
 ```
 import { red, blue } from "./button-styles";
