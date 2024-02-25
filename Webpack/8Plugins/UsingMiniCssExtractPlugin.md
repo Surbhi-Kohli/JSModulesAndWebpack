@@ -16,7 +16,16 @@ to:
 When you build your code, you will notice that there is a css file added in your dist folder and the index.html holds a link to that file. 
 <img width="738" alt="Screenshot 2024-02-25 at 10 38 03 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/43e86bae-3e72-40a2-9940-25c5277be4bb">
 
-<img width="617" alt="Screenshot 2024-02-25 at 10 41 00 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/9d7257d1-259b-495e-ac9b-f8635519f818">
+<img width="503" alt="Screenshot 2024-02-25 at 10 42 36 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/c06d8f57-8f77-4abc-84a1-335da496de90">
+ If you import multiple CSS files in your project, like here we do, will it inject multiple link tags?no
+ <img width="431" alt="Screenshot 2024-02-25 at 10 52 44 PM" src="https://github.com/Surbhi-Kohli/JSModulesAndWebpack/assets/32058209/709892c2-b18a-49cd-8713-8918f0f32c7b">
 
+ It will concatenate the styles in the main.css.
 
+ One important thing here:
+So you're importing css styles  to the top-level module there. And then it's just gonna be putting those all in the same scope there.So the CSS wouldn't be scoped to the module.That is a caveat to think about.And that's why, when we talk about, let's say, Code splitting CSS,it becomes valuable to then separate those into asynchronous applications.you can, in real time, dynamically force scope change by applying a new style sheet.
+
+a lot of people will end up using CSS modules to have the scope capabilities.Or they'll use their framework's recommended waythat webpack powers behind the scenes.
+
+The mini css extract plugin has support to lazy load css.I think that's really cool,because it's nothing that any build tools have been able to generate so far for us.And so really makes performance possible, especially in the realms of CSS.
 
